@@ -19,6 +19,10 @@ export const Container = styled.header`
         @media (max-width: 420px){
             font-size: 18px;
         }
+
+        @media (max-width: 320px){
+            font-size: 14px;
+        }
     }
 
     a{
@@ -32,6 +36,10 @@ export const Container = styled.header`
         
         @media (max-width: 420px){
             font-size: 14px;
+        }
+
+        @media (max-width: 320px){
+            font-size: 12px;
         }
     }
 `   
