@@ -11,6 +11,7 @@ export function Router(){
         <>
             <BrowserRouter>
                 <Routes>
+                    <Route path="/" element={<Home/>}/>
                     <Route path="/:page" element={<Home/>}/>
                     <Route path="/movie/:id" element={<Movies/>}/>
                     <Route path="/favorites" element={<Favorites/>}/>

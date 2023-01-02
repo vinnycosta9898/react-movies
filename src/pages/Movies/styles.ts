@@ -90,7 +90,7 @@ export const ImageContainer = styled.div`
 
 export const DescriptionContainer = styled.div`
     width: 1200px;
-    max-height: 80%;
+    max-height: max-content;
     background-color: #313131;
     border-radius: 10px;
 
@@ -161,7 +161,7 @@ export const DescriptionContainer = styled.div`
 
 export const DataContainer = styled.div`
     width: 180px;
-    max-height: 300px;
+    max-height: max-content;
     background-color: #313131;
     border-radius: 5px;
     color: #fff;
