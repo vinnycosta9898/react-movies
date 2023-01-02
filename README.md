@@ -23,7 +23,7 @@ $ git clone https://github.com/vinnycosta9898/react-movies
 $ cd react-movies
 
 # Install Dependencies
-$ npm i
+$ npm install
 
 # Run Web Server
 $ npm run dev
