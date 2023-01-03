@@ -1,4 +1,8 @@
-import { Container, TitleContainer, ButtonContainer, CastContainer } from './styles';
+import { Container, 
+        TitleContainer,
+        ButtonContainer,
+        CastContainer 
+       } from './styles';
 
 import { FiX } from 'react-icons/fi';
 import Modal from 'react-modal';

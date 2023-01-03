@@ -5,7 +5,9 @@ export const Container = styled.div`
 
     position: absolute;
     top: 500px;
+`
 
+export const ButtonContainer = styled.div`
     button{
         background: none;
         border: none;
@@ -26,5 +28,4 @@ export const Container = styled.div`
     @media (max-width: 1300px){
         top: 400px;
     }
-
 `
