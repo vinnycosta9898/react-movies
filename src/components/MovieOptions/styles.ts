@@ -15,7 +15,7 @@ export const Container = styled.div`
     }
 
     @media (max-width: 630px){
-        top: 370px;
+        top: 320px;
     }
 
     @media (max-width: 530px){
@@ -23,7 +23,7 @@ export const Container = styled.div`
     }
 
     @media (max-width: 430px){
-        top: 250px;
+        top: 230px;
     }
 `
 
