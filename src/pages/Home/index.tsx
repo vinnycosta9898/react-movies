@@ -59,7 +59,7 @@ export function Home(){
     return(
         <Container>
             <TitleContainer>
-                <h1>Filmes em Cartaz</h1>
+                <h1>Filmes</h1>
             </TitleContainer>
                 <MovieContainer>
                     {movies.map((movie) => {

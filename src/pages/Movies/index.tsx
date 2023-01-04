@@ -47,10 +47,7 @@ export interface CreditsRequestProps{
         }[],
 }
 
-export function Movies(
-                        { genres } : MovieRequestProps, 
-                        { cast }   : CreditsRequestProps
-                       ){
+export function Movies({ genres } : MovieRequestProps, { cast }: CreditsRequestProps){
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -115,9 +112,10 @@ export function Movies(
                 <img src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
                      alt={movie.title} 
                      onMouseOver={() => setShowElement(true)}
-                     onMouseOut={() => setShowElement(false)}
+                     onMouseLeave={() => setTimeout(() => {
+                        setShowElement(false)
+                     }, 3000)}
                 />
-
                 {showElement? <MovieOptions id={movie.id} movie={movie}/> : ""}
             </ImageContainer>
             

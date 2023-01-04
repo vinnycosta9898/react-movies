@@ -33,14 +33,17 @@ export function MovieOptions({ movie } : MovieOptionsProps){
     return(
         <Container>
             <ButtonContainer>
-                <button onClick={saveMovie}>
+                <button 
+                    onClick={saveMovie}
+                >
                     <BsFillHeartFill size={25}/>
                     <span>Adicionar aos favoritos</span>
                 </button>
             </ButtonContainer>
             
             <ButtonContainer>
-                <button>
+                <button
+                >
                     <BiMovie size={25}/>
                     <a 
                         href={`https://youtube.com/results?search_query=${movie.title} Trailer`}

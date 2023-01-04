@@ -20,7 +20,7 @@ export function Favorites({ movie } : MovieOptionsProps){
     }, [])
 
     function handleDelete(id: string){
-        let filterMovie = movies.filter((movies) => {
+        let filterMovie = movies.filter((movie) => {
             return(movie.id != id)
         })
 
@@ -39,7 +39,7 @@ export function Favorites({ movie } : MovieOptionsProps){
                 {movies.length == 0 && <h1>Lista Vazia</h1>}
                 <MovieContainer>
                     {
-                        movies.map((movies) => {
+                        movies.map((movie) => {
                             return(
                                 <CardContainer>
                                     <span>{movie.title}</span>

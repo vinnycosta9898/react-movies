@@ -20,11 +20,11 @@ export const TitleContainer = styled.div`
         font-size: 36px;
         margin-top: 20px;
 
-        @media (max-width: 550px){
+        @media (max-width: 530px){
             font-size: 24px;
         }
 
-        @media (max-width: 420px){
+        @media (max-width: 430px){
             font-size: 20px;
         }
     }
