@@ -3,7 +3,7 @@ import { Container, ButtonContainer} from './styles';
 import { BiMovie } from 'react-icons/bi';
 import { BsFillHeartFill } from 'react-icons/bs';
 
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 
 export interface MovieOptionsProps{
@@ -22,13 +22,13 @@ export function MovieOptions({ movie } : MovieOptionsProps){
         const hasMovie = moviesSave.some((movieSave: MovieOptionsProps) => movieSave.id == movie.id)
 
         if(hasMovie){
-            alert("Filme ja Salvo");
+            toast.warning("Filme ja Salvo");
             return;
         }
 
         moviesSave.push(movie)
         localStorage.setItem("@movieflix", JSON.stringify(moviesSave))
-        alert("Filme salvo com sucesso");
+        toast.success("Filme salvo com sucesso");
     }
     return(
         <Container>
