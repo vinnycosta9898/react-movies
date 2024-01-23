@@ -4,6 +4,9 @@ import { apiMovies } from "@/lib/axios"
 import { Header } from "@/components/Header"
 import { MovieInfoCard } from "@/components/MovieInfoCard"
 
+import { formatDate } from "@/utils/formatDate"
+import { formatCurrency } from "@/utils/formatCurrency"
+
 interface MovieProps{
   movie:{
     backdrop_path: string
@@ -47,7 +50,7 @@ export default function Movie({ ...props } : MovieProps){
               <MovieInfoCard
                 logo="calendar"
                 title="Data de lançamento"
-                value={props.movie.release_date}
+                value={formatDate(props.movie.release_date)}
               />
               <MovieInfoCard
                 logo="clock"
@@ -57,12 +60,12 @@ export default function Movie({ ...props } : MovieProps){
               <MovieInfoCard
                 logo="dollar"
                 title="Orçamento"
-                value={props.movie.budget}
+                value={formatCurrency(Number(props.movie.budget))}
               />
               <MovieInfoCard
                 logo="x"
                 title="Receita"
-                value={props.movie.revenue}
+                value={formatCurrency(props.movie.revenue)}
               />
               <MovieInfoCard
                 logo="x"
@@ -74,7 +77,6 @@ export default function Movie({ ...props } : MovieProps){
                 title="Produção"
                 value={industries}
               />
-              
             </div>
           </div>
         </div>

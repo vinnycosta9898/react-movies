@@ -17,15 +17,15 @@ export function Paginate(){
     }
     else if(id === 2){
       setPage( page > 1 ? page - 1 : page)
-      router.push(`/home/page=${page >= 1 ? page - 1 : page}`)
+      router.push(`/page/${page >= 1 ? page - 1 : page}`)
     }
     else if(id === 3){
       setPage(page < 10 ? page + 1 : page)
-      router.push(`/home/page=${page <= 10 ? page + 1 : page}`)
+      router.push(`/page/${page <= 10 ? page + 1 : page}`)
     }
     else{
       setPage(10)
-      router.push(`/home/page=${10}`)
+      router.push(`/page/${10}`)
     }
 
   }

@@ -13,7 +13,7 @@ interface MovieProps{
   }[]
 }
 
-export default function Home({ movies } : MovieProps){   
+export default function Page({ movies } : MovieProps){   
   
   return(
     <div className="min-w-screen min-h-screen bg-black flex flex-col justify-center">
@@ -42,12 +42,14 @@ export default function Home({ movies } : MovieProps){
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps<any, {page: string}> = async ({ params }) => {
+  const page = params?.page
+  console.log(page)
   const response = await apiMovies.get('/movie/now_playing', {
     params:{
       api_key: process.env.API_KEY_TMDB,
       language: 'pt-br',
-      page: 1
+      page: page
     }
   })
 
