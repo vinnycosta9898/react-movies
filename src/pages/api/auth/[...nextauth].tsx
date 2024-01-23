@@ -22,7 +22,7 @@ export function buildNextAuthOptions(req: NextApiRequest, res:NextApiResponse){
     ],
 
     callbacks:{
-      async session({ session, user }: any){
+      async session({ session, user } : any){
         return{
           ...session,
           user,
