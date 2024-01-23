@@ -3,6 +3,7 @@ import { GetServerSideProps } from "next";
 import { Header } from "@/components/Header";
 import { apiMovies } from "@/lib/axios";
 import { MovieCard } from "@/components/MovieCard";
+import { Paginate } from "@/components/Paginate";
 
 interface MovieProps{
   movies:{
@@ -13,6 +14,7 @@ interface MovieProps{
 }
 
 export default function Home({ movies } : MovieProps){   
+  
   return(
     <div className="min-w-screen min-h-screen bg-black flex flex-col justify-center">
       <Header/>
@@ -32,7 +34,10 @@ export default function Home({ movies } : MovieProps){
               )
           })}
           </div>
-      </div>      
+      </div>
+      <footer className="w-full flex justify-center">
+        <Paginate/>
+      </footer>      
     </div>
   )
 }
@@ -41,7 +46,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const response = await apiMovies.get('/movie/now_playing', {
     params:{
       api_key: process.env.API_KEY_TMDB,
-      language: 'pt-br'
+      language: 'pt-br',
+      page: 2
     }
   })
 
