@@ -1,10 +1,27 @@
 import { LogosGoogleIcon } from "@/components/Icons/Google";
 import { LogosReact } from "@/components/Icons/React";
+import { useRouter } from "next/router";
+import { signIn } from "next-auth/react";
 
 export default function Home() {
+  const router = useRouter()
+
+  async function handleSignIn(provider: string, callbackUrl="/"){
+    if(!provider){
+      router.push('/')
+      return
+    }
+    signIn(provider, {
+      callbackUrl
+    })
+
+    router.push('/home')
+
+  }
+  
   return (
     <div className="w-screen h-screen bg-black flex">
-      <aside className="w-[50%] h-full">
+      <aside className="w-[50%] h-full bg-cyan-800">
   
       </aside>
 
@@ -14,7 +31,7 @@ export default function Home() {
           <LogosReact width={60}/>
         </div>
 
-        <button className="w-64 h-12 bg-gray-800 flex justify-around items-center rounded-lg">
+        <button className="w-64 h-12 bg-gray-800 flex justify-around items-center rounded-lg" onClick={() => handleSignIn("google")}>
           <LogosGoogleIcon/>
           Entrar com Google
         </button>

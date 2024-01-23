@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { Adapter } from "next-auth/adapters"
 import { prisma } from "../prisma"
+import { destroyCookie, parseCookies } from "nookies"
 
 export function PrismaAdapter(
   req: NextApiRequest,
@@ -8,20 +9,25 @@ export function PrismaAdapter(
 ): Adapter {
   return {
     async createUser(user) {
-      const createdUser = await prisma.user.create({
-        data: {
+      const prismaUser = await prisma.user.create({
+        data:{
           name: user.name,
-          avatar_url: user.avatar_url,
           email: user.email,
-          
+          avatar_url: user.avatar_url!,
         }
       })
 
-      return {
-        ...createdUser,
-        avatar_url: createdUser.avatar_url!,
-        emailVerified: null
-      }
+     destroyCookie({ res }, '@react-movies:userId', {
+      path: '/'
+     })
+
+     return{
+      id: prismaUser.id,
+      name: prismaUser.name,
+      email: prismaUser.email,
+      avatar_url: prismaUser.avatar_url,
+      emailVerified: null
+     }
     },
 
     async getUser(id) {
