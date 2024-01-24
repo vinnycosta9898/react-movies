@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { setCookie } from 'nookies'
 

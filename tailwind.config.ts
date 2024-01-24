@@ -11,6 +11,7 @@ const config: Config = {
       black: '#000',
       bronze: '#E29144',
       danger: '#FF4D4D', 
+      gray_100: '#696969',
       gray_300: '#181818',
       green: '#2E8B57',
       white: '#FFF'

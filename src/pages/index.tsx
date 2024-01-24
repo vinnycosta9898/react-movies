@@ -8,15 +8,14 @@ export default function Home() {
 
   async function handleSignIn(provider: string, callbackUrl="/"){
     if(!provider){
-      router.push('/')
+      await router.push('/')
       return
     }
     signIn(provider, {
       callbackUrl
     })
 
-    router.push('/home')
-
+    await router.push('/home')
   }
   
   return (
@@ -31,7 +30,7 @@ export default function Home() {
           <LogosReact width={60}/>
         </div>
 
-        <button className="w-64 h-12 bg-gray-800 flex justify-around items-center rounded-lg" onClick={() => handleSignIn("google")}>
+        <button className="w-64 h-12 text-xl bg-gray_300 flex justify-around items-center rounded-lg" onClick={() => handleSignIn("google")}>
           <LogosGoogleIcon/>
           Entrar com Google
         </button>

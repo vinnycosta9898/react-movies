@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import Image from "next/image"
 import { GetStaticPaths, GetStaticProps } from "next"
 import { apiMovies } from "@/lib/axios"
@@ -12,8 +11,14 @@ interface MovieProps{
   movie:{
     backdrop_path: string
     budget: string | number
+    genres: {
+      id: string
+      name: string
+    }[]
     overview: string
-    production_companies: string[]
+    production_companies: {
+      name: string
+    }[]
     poster_path: string
     release_date: string
     revenue: number
@@ -25,10 +30,6 @@ interface MovieProps{
 }
 
 export default function Movie({ ...props } : MovieProps){
-  const companies = props.movie.production_companies.map(item => item.name)
-
-  const industries = [...companies.slice(0, 2)]
-
   return(
     <div className="min-w-screen min-h-screen bg-black">
       <Header/>
@@ -38,15 +39,16 @@ export default function Movie({ ...props } : MovieProps){
             src={`https://image.tmdb.org/t/p/w500/${props.movie.poster_path}`}
             alt={`poster do filme ${props.movie.title}`}
             width={360}
-            height={520}
+            height={580}
             className="rounded-lg"
           />
         </aside>
-        <div className="w-[32rem] h-[30rem]  flex flex-col items-center">
+        <div className="w-[50rem] h-[20rem] flex flex-col items-center">
           <h1 className=" text-3xl text-white text-center">{props.movie.title}</h1>
-          <h3 className="text-bronze mt-2">{props.movie.tagline ? props.movie.tagline : 'Frase indisponível'}</h3>
+          <h3 className="text-bronze mt-2 text-center">{props.movie.tagline ? props.movie.tagline : 'Frase indisponível'}</h3>
+          <h4 className="text-bronze mt-2">{" " + props.movie.genres.map(genre => genre.name)}</h4>
           <span className="text-white text-center my-4">{props.movie.overview ? props.movie.overview : 'Sinopse indísponível'}</span>
-          <div className="w-[32rem] h-[20rem] flex justify-center">
+          <div className="w-[32rem] h-[20rem] flex justify-center items-center">
             <div className="grid grid-cols-3 gap-12">
               <MovieInfoCard
                 logo="calendar"
@@ -76,13 +78,12 @@ export default function Movie({ ...props } : MovieProps){
               <MovieInfoCard
                 logo="x"
                 title="Produção"
-                value={industries}
+                value={props.movie.production_companies.map(companies => companies.name).slice(0, 2)}
               />
             </div>
           </div>
         </div>
       </div>
-      
     </div>
   )
 }

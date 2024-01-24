@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetStaticProps } from "next";
 import { useRouter } from "next/router";
 
 import { FiSearch } from "react-icons/fi";
@@ -13,7 +13,6 @@ import { apiMovies } from "@/lib/axios";
 
 import { MovieCard } from "@/components/MovieCard";
 import { Paginate } from "@/components/Paginate";
-
 
 interface MovieProps{
   movies:{
@@ -39,11 +38,12 @@ export default function Home({ movies } : MovieProps){
       })
   
   const router = useRouter()
+
   
   async function handleSearchMovie(movie: FormMovieData){
     router.push(`search/${movie.movie}`)
   }
-
+  
   return(
     <div className="min-w-screen min-h-screen bg-black flex flex-col justify-center">
       <Header/>
@@ -54,11 +54,11 @@ export default function Home({ movies } : MovieProps){
             <input 
               type="text" 
               placeholder="Busque um filme" 
-              className="w-96 h-10 rounded-lg bg-gray_300 outline-none px-1 placeholder:text-white" 
+              className="w-96 h-10 rounded-lg bg-gray_300 outline-none px-1 text-gray_100 placeholder:text-gray_100" 
               {...register('movie')}
             />
             <button className="w-8 h-10 bg-gray_300 rounded-lg flex items-center justify-center">
-              <FiSearch/>
+              <FiSearch color="#696969"/>
             </button>
           </form>
           {errors.movie? <span className="text-danger mt-2">{errors.movie.message}</span> : null}

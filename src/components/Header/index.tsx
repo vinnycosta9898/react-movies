@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react"
 
 export function Header(){
   const session = useSession()
+  const statusAuthenticated = session.status
   const username = session.data?.user.name
 
   return(
@@ -19,9 +20,9 @@ export function Header(){
 
       <Link href='/profile' className="flex items-center justify-center">
         <h1 className="text-white text-lg font-bold mx-2">{username}</h1>
+        {statusAuthenticated === 'unauthenticated' && <Link href="/" className="text-white text-lg font-bold mx-2">Fazer login</Link>}
         <div className="w-10 h-10 bg-white rounded-[999px]"></div>
       </Link>
-
     </div>
   )
 }

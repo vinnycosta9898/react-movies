@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { Adapter } from "next-auth/adapters"
 import { prisma } from "../prisma"
-import { destroyCookie, parseCookies } from "nookies"
+import { destroyCookie } from "nookies"
 
 export function PrismaAdapter(
   req: NextApiRequest,
@@ -25,7 +25,7 @@ export function PrismaAdapter(
       id: prismaUser.id,
       name: prismaUser.name,
       email: prismaUser.email,
-      avatar_url: prismaUser.avatar_url,
+      avatar_url: prismaUser.avatar_url!,
       emailVerified: null
      }
     },
