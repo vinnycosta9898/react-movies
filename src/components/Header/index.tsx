@@ -10,7 +10,7 @@ export function Header(){
       </div>
       <nav className="w-80 flex">
         <Link href='/home' className="text-xl text-white font-bold mx-2 hover:text-teal-400">Inicio</Link>
-        <Link href='/home' className="text-xl text-white font-bold mx-2  hover:text-teal-400">Meu Perfil</Link>
+        <Link href='/profile' className="text-xl text-white font-bold mx-2  hover:text-teal-400">Meu Perfil</Link>
       </nav>
     </div>
   )

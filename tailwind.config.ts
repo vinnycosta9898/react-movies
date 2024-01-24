@@ -10,6 +10,8 @@ const config: Config = {
     colors:{
       black: '#000',
       bronze: '#E29144',
+      danger: '#FF4D4D', 
+      gray_300: '#181818',
       green: '#2E8B57',
       white: '#FFF'
     },
@@ -18,7 +20,7 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
+      }
     },
   },
   plugins: [],

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import { GetStaticPaths, GetStaticProps } from "next"
 import { apiMovies } from "@/lib/axios"
@@ -27,7 +28,7 @@ export default function Movie({ ...props } : MovieProps){
   const companies = props.movie.production_companies.map(item => item.name)
 
   const industries = [...companies.slice(0, 2)]
-  
+
   return(
     <div className="min-w-screen min-h-screen bg-black">
       <Header/>
@@ -41,11 +42,11 @@ export default function Movie({ ...props } : MovieProps){
             className="rounded-lg"
           />
         </aside>
-        <div className="w-[40rem] h-[30rem]  flex flex-col items-center">
+        <div className="w-[32rem] h-[30rem]  flex flex-col items-center">
           <h1 className=" text-3xl text-white text-center">{props.movie.title}</h1>
           <h3 className="text-bronze mt-2">{props.movie.tagline ? props.movie.tagline : 'Frase indisponível'}</h3>
           <span className="text-white text-center my-4">{props.movie.overview ? props.movie.overview : 'Sinopse indísponível'}</span>
-          <div className="w-[40rem] h-[20rem] flex justify-center">
+          <div className="w-[32rem] h-[20rem] flex justify-center">
             <div className="grid grid-cols-3 gap-12">
               <MovieInfoCard
                 logo="calendar"
