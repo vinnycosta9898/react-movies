@@ -6,9 +6,11 @@ import { MovieInfoCard } from "@/components/MovieInfoCard"
 
 import { formatDate } from "@/utils/formatDate"
 import { formatCurrency } from "@/utils/formatCurrency"
+import Link from "next/link"
 
 interface MovieProps{
   movie:{
+    id: string
     backdrop_path: string
     budget: string | number
     genres: {
@@ -38,49 +40,53 @@ export default function Movie({ ...props } : MovieProps){
           <Image
             src={`https://image.tmdb.org/t/p/w500/${props.movie.poster_path}`}
             alt={`poster do filme ${props.movie.title}`}
-            width={360}
-            height={580}
+            width={430}
+            height={640}
             className="rounded-lg"
           />
         </aside>
-        <div className="w-[50rem] h-[20rem] flex flex-col items-center">
+        <div className="flex flex-col items-center">
+        <div className="w-[50rem] h-[20rem] flex flex-col justify-center items-center px-8 inset-0 bg-[#ffffff10] backdrop-blur-md rounded-lg">
           <h1 className=" text-3xl text-white text-center">{props.movie.title}</h1>
           <h3 className="text-bronze mt-2 text-center">{props.movie.tagline ? props.movie.tagline : 'Frase indisponível'}</h3>
           <h4 className="text-bronze mt-2">{" " + props.movie.genres.map(genre => genre.name)}</h4>
           <span className="text-white text-center my-4">{props.movie.overview ? props.movie.overview : 'Sinopse indísponível'}</span>
-          <div className="w-[32rem] h-[20rem] flex justify-center items-center">
-            <div className="grid grid-cols-3 gap-12">
-              <MovieInfoCard
-                logo="calendar"
-                title="Data de lançamento"
-                value={formatDate(props.movie.release_date)}
-              />
-              <MovieInfoCard
-                logo="clock"
-                title="Duração"
-                value={props.movie.runtime + " min"}
-              />
-              <MovieInfoCard
-                logo="dollar"
-                title="Orçamento"
-                value={formatCurrency(Number(props.movie.budget))}
-              />
-              <MovieInfoCard
-                logo="x"
-                title="Receita"
-                value={formatCurrency(props.movie.revenue)}
-              />
-              <MovieInfoCard
-                logo="x"
-                title="Nota"
-                value={props.movie.vote_average}
-              />
-              <MovieInfoCard
-                logo="x"
-                title="Produção"
-                value={props.movie.production_companies.map(companies => companies.name).slice(0, 2)}
-              />
-            </div>
+          <Link href={`/cast/${props.movie.id}`} className="text-gray_100 text-xl font-bold">Ver elenco</Link>
+        </div>
+
+        <div className="w-[50rem] h-[20rem] flex justify-center items-center">
+          <div className="grid grid-cols-3 gap-12">
+            <MovieInfoCard
+              logo="calendar"
+              title="Data de lançamento"
+              value={formatDate(props.movie.release_date)}
+            />
+            <MovieInfoCard
+              logo="clock"
+              title="Duração"
+              value={props.movie.runtime + " min"}
+            />
+            <MovieInfoCard
+              logo="dollar"
+              title="Orçamento"
+              value={formatCurrency(Number(props.movie.budget))}
+            />
+            <MovieInfoCard
+              logo="x"
+              title="Receita"
+              value={formatCurrency(props.movie.revenue)}
+            />
+            <MovieInfoCard
+              logo="x"
+              title="Nota"
+              value={props.movie.vote_average}
+            />
+            <MovieInfoCard
+              logo="x"
+              title="Produção"
+              value={props.movie.production_companies.map(companies => companies.name).slice(0, 2)}
+            />
+          </div>
           </div>
         </div>
       </div>
