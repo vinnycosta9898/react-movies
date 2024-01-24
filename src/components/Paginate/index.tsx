@@ -9,6 +9,9 @@ import { HiOutlineChevronLeft,
 export function Paginate(){
   const [page, setPage] = useState(1)
   const router = useRouter()
+  const actualPage = router.query
+
+  console.log(actualPage)
   
   function handleChangePage(id: number){
     if(id === 1){
@@ -17,11 +20,15 @@ export function Paginate(){
     }
     else if(id === 2){
       setPage( page > 1 ? page - 1 : page)
-      router.push(`/page/${page >= 1 ? page - 1 : page}`)
+      if(page !== 1 ){
+        router.push(`/page/${page >= 1 ? page - 1 : page}`)
+      }
     }
     else if(id === 3){
       setPage(page < 10 ? page + 1 : page)
-      router.push(`/page/${page <= 10 ? page + 1 : page}`)
+      if(page !== 10){
+        router.push(`/page/${page <= 10 ? page + 1 : page}`)
+      }
     }
     else{
       setPage(10)
@@ -41,7 +48,7 @@ export function Paginate(){
         </button>
       </div>
       <div className="flex items-center justify-center">
-        <span className="text-xl text-bronze font-bold">{page}</span>
+        <span className="text-xl text-bronze font-bold">{actualPage.page ? actualPage.page : 1}</span>
 
       </div>
       <div>

@@ -13,6 +13,7 @@ const config: Config = {
       danger: '#FF4D4D', 
       gray_100: '#696969',
       gray_300: '#181818',
+      gray_500: '#101010',
       green: '#2E8B57',
       white: '#FFF'
     },

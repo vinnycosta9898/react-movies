@@ -20,7 +20,7 @@ export default function Home() {
   
   return (
     <div className="w-screen h-screen bg-black flex">
-      <aside className="w-[50%] h-full bg-cyan-800">
+      <aside className="w-[50%] h-full bg-gray_500">
   
       </aside>
 
