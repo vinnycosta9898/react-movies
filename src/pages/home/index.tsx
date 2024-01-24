@@ -1,14 +1,19 @@
 import Link from "next/link";
-import { GetServerSideProps } from "next";
-import { Header } from "@/components/Header";
-import { api, apiMovies } from "@/lib/axios";
-import { MovieCard } from "@/components/MovieCard";
-import { Paginate } from "@/components/Paginate";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { useRouter } from "next/router";
+
 import { FiSearch } from "react-icons/fi";
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/router";
+
+import { Header } from "@/components/Header";
+
+import { apiMovies } from "@/lib/axios";
+
+import { MovieCard } from "@/components/MovieCard";
+import { Paginate } from "@/components/Paginate";
+
 
 interface MovieProps{
   movies:{
@@ -81,20 +86,22 @@ export default function Home({ movies } : MovieProps){
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
+
   const response = await apiMovies.get('/movie/now_playing', {
     params:{
       api_key: process.env.API_KEY_TMDB,
       language: 'pt-br',
-      page: 1
     }
   })
 
   const movies = response.data.results.slice(0, 12)
-  
+
   return{
     props:{
       movies
-    }
+    },
+    revalidate: 60 * 60 * 24 * 7 // 7 days
   }
 }
+

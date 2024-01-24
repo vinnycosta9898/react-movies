@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
 import { Header } from "@/components/Header";
 import { apiMovies } from "@/lib/axios";
 import { MovieCard } from "@/components/MovieCard";
@@ -81,23 +81,32 @@ export default function Search({ movies } : MovieProps){
   )
 }
 
-export const getServerSideProps: GetServerSideProps<any, { movie: string}> = async ({ params }) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  return{
+    paths: [
+      { params: {movie: '955916'} }
+    ],
+    fallback : 'blocking'
+  }
+}
+
+export const getStaticProps: GetStaticProps<any, { movie: string}> = async ({ params }) => {
   const movie = params?.movie
 
   const response = await apiMovies.get('/search/movie', {
     params:{
       api_key: process.env.API_KEY_TMDB,
-      query: movie,
       language: 'pt-br',
-      page: 1
+      query: movie
     }
   })
 
   const movies = response.data.results.slice(0, 12)
-  
+
   return{
     props:{
       movies
-    }
+    },
+    revalidate: 60 * 60 * 24 * 7 // 7 days
   }
 }
