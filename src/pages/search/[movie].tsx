@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { GetServerSideProps } from "next";
 import { Header } from "@/components/Header";
-import { api, apiMovies } from "@/lib/axios";
+import { apiMovies } from "@/lib/axios";
 import { MovieCard } from "@/components/MovieCard";
 import { Paginate } from "@/components/Paginate";
 import { FiSearch } from "react-icons/fi";
@@ -19,12 +19,12 @@ interface MovieProps{
 }
 
 const formMovieSchema = z.object({
-  movie: z.string().min(2, { message: 'O filme precisa ter no mínimo 2 letras'})
+  movie: z.string().trim().min(2, { message: 'O filme precisa ter no mínimo 2 letras'})
 })
 
 type FormMovieData = z.infer<typeof formMovieSchema>
 
-export default function Home({ movies } : MovieProps){   
+export default function Search({ movies } : MovieProps){   
   const { 
       register, 
       handleSubmit, 
@@ -32,12 +32,12 @@ export default function Home({ movies } : MovieProps){
       } = useForm<FormMovieData>({
           resolver: zodResolver(formMovieSchema)
       })
-  
-  const router = useRouter()
-  
-  async function handleSearchMovie(movie: FormMovieData){
-    router.push(`search/${movie.movie}`)
-  }
+
+    const router = useRouter()
+
+    async function handleSearchMovie(movie: FormMovieData){
+      router.push(`/search/${movie.movie}`)
+    }
 
   return(
     <div className="min-w-screen min-h-screen bg-black flex flex-col justify-center">
@@ -81,10 +81,13 @@ export default function Home({ movies } : MovieProps){
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const response = await apiMovies.get('/movie/now_playing', {
+export const getServerSideProps: GetServerSideProps<any, { movie: string}> = async ({ params }) => {
+  const movie = params?.movie
+
+  const response = await apiMovies.get('/search/movie', {
     params:{
       api_key: process.env.API_KEY_TMDB,
+      query: movie,
       language: 'pt-br',
       page: 1
     }
