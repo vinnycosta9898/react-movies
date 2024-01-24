@@ -5,3 +5,12 @@
 ::root {
   overflow-x: hidden;
 }
+
+::-webkit-scrollbar {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #181818;
+  border-radius: 999px;
+}

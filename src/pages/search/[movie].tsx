@@ -74,9 +74,6 @@ export default function Search({ movies } : MovieProps){
           })}
           </div>
       </div>
-      <footer className="w-full flex justify-center">
-        <Paginate/>
-      </footer>      
     </div>
   )
 }
