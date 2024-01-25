@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 import { LogosReact } from "../Icons/React"
 import { useSession } from "next-auth/react"
@@ -21,7 +22,20 @@ export function Header(){
       <Link href='/profile' className="flex items-center justify-center">
         <h1 className="text-white text-lg font-bold mx-2">{username}</h1>
         {statusAuthenticated === 'unauthenticated' && <Link href="/" className="text-white text-lg font-bold mx-2">Fazer login</Link>}
-        <div className="w-10 h-10 bg-white rounded-[999px]"></div>
+        {
+          session.status === 'unauthenticated' 
+          ?         
+          <div className="w-10 h-10 bg-white rounded-[999px]"></div>
+          :  
+          <Image 
+            src={session.data?.user.avatar_url as string}
+            alt={session.data?.user.name as string}
+            width={80}
+            height={80}
+            className="w-10 h-10 bg-white rounded-[999px]"
+          />
+        }
+        
       </Link>
     </div>
   )

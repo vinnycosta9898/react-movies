@@ -15,7 +15,7 @@ export function buildNextAuthOptions(req: NextApiRequest, res:NextApiResponse){
             id: profile.sub,
             name: profile.name,
             email: profile.email,
-            avatar_url: profile.avatar_url
+            avatar_url: profile.picture
           }
         },
       }),

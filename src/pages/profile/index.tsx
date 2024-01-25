@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Header } from "@/components/Header";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
@@ -11,13 +12,20 @@ export default function Profile(){
     await router.push('/')
     await signOut()
   }
-
+  
+  console.log(session.data?.user.avatar_url)
   return(
     <div className="w-screen h-screen bg-black">
       <Header/>
       <div>
         <div className="flex flex-col items-center mt-16">
-          <div className="w-32 h-32 bg-white rounded-[999px]"></div>
+          <Image
+            src={session.data?.user.avatar_url as string}
+            alt={session.data?.user.name as string}
+            width={180}
+            height={180}
+            className="w-32 h-32 bg-white rounded-[999px]"
+          />
           
           <h1 className="text-white text-2xl font-bold mt-4">{session.data?.user.name}</h1>
           <div>
