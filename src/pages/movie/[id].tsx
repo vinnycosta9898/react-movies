@@ -32,18 +32,60 @@ interface MovieProps{
 }
 
 export default function Movie({ ...props } : MovieProps){
+  
+  function handleSaveMovie(movieId: string){
+    const moviesSaved = localStorage.getItem('@react-movies:movie')
+    const moviesList = JSON.parse(moviesSaved || '[]')
+    const hasMovieOnList = moviesList.some((movie: MovieProps) => {
+      return movie.movie?.id === movieId
+    })
+
+    if(hasMovieOnList){
+      alert("Filme já salvo")
+      return;
+    }
+
+    moviesList.push(movieId)
+    localStorage.setItem('@react-movies:movie', JSON.stringify(moviesList))
+    alert("Filme adicionado aos favoritos")
+  }
+
   return(
-    <div className="min-w-screen min-h-screen bg-black">
+    <div className="min-w-screen min-h-screen bg-black flex flex-col items-center">
       <Header/>
+      <Image
+            src={`https://image.tmdb.org/t/p/w500/${props.movie.backdrop_path}`}
+            alt={`Banner do filme ${props.movie.title}`}
+            width={1200}
+            height={674}
+            quality={100}
+            className="rounded-lg"
+          />
       <div className="w-full h-full flex justify-center gap-4 mt-8">
         <aside>
           <Image
             src={`https://image.tmdb.org/t/p/w500/${props.movie.poster_path}`}
-            alt={`poster do filme ${props.movie.title}`}
-            width={430}
-            height={640}
+            alt={`Poster do filme ${props.movie.title}`}
+            width={360}
+            height={420}
+            quality={100}
+            priority
             className="rounded-lg"
           />
+          <div className="flex justify-around mt-2">
+            <button 
+              className="w-[11rem] h-12 rounded-lg bg-gray_300 text-danger"
+              onClick={() => handleSaveMovie(props.movie.id)}
+            >
+              Adicionar aos favoritos
+            </button>
+            <Link 
+              href={`https://www.youtube.com/results?search_query=${props.movie.title}+Trailer`}
+              className="w-[11rem] h-12 flex items-center justify-center rounded-lg bg-gray_300 text-green"
+            >
+              Assistir trailer
+            </Link>
+          </div>
         </aside>
         <div className="flex flex-col items-center">
         <div className="w-[50rem] h-[20rem] flex flex-col justify-center items-center px-8 inset-0 bg-[#ffffff10] backdrop-blur-md rounded-lg">
@@ -54,8 +96,8 @@ export default function Movie({ ...props } : MovieProps){
           <Link href={`/cast/${props.movie.id}`} className="text-gray_100 text-xl font-bold">Ver elenco</Link>
         </div>
 
-        <div className="w-[50rem] h-[20rem] flex justify-center items-center">
-          <div className="grid grid-cols-3 gap-12">
+        <div className="w-[50rem] h-[20rem] flex justify-center mt-4">
+          <div className="flex gap-2">
             <MovieInfoCard
               logo="calendar"
               title="Data de lançamento"
@@ -72,18 +114,18 @@ export default function Movie({ ...props } : MovieProps){
               value={formatCurrency(Number(props.movie.budget))}
             />
             <MovieInfoCard
-              logo="x"
+              logo="money"
               title="Receita"
               value={formatCurrency(props.movie.revenue)}
             />
             <MovieInfoCard
-              logo="x"
+              logo="star"
               title="Nota"
               value={props.movie.vote_average}
             />
             <MovieInfoCard
-              logo="x"
-              title="Produção"
+              logo="movie"
+              title="movie"
               value={props.movie.production_companies.map(companies => companies.name).slice(0, 2)}
             />
           </div>
