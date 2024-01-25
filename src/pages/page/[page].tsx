@@ -44,20 +44,29 @@ export default function Page({ movies } : MovieProps){
 
 export const getServerSideProps: GetServerSideProps<any, {page: string}> = async ({ params }) => {
   const page = params?.page
-  console.log(page)
-  const response = await apiMovies.get('/movie/now_playing', {
-    params:{
-      api_key: process.env.API_KEY_TMDB,
-      language: 'pt-br',
-      page: page
-    }
-  })
 
-  const movies = response.data.results.slice(0, 12)
+  try{
+    const response = await apiMovies.get('/movie/now_playing', {
+      params:{
+        api_key: process.env.API_KEY_TMDB,
+        language: 'pt-br',
+        page: page
+      }
+    })
   
-  return{
-    props:{
-      movies
+    const movies = response.data.results.slice(0, 12)
+    
+    return{
+      props:{
+        movies
+      }
+    }
+  }catch(err){
+    return{
+      props:{
+        movies: []
+      }
     }
   }
+  
 }

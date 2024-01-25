@@ -1,7 +1,9 @@
+import colors from "tailwindcss/colors";
 import Image from "next/image"
 import Link from "next/link"
-import { LogosReact } from "../Icons/React"
 import { useSession } from "next-auth/react"
+import { FaReact } from "react-icons/fa";
+
 
 export function Header(){
   const session = useSession()
@@ -12,7 +14,7 @@ export function Header(){
     <div className="w-full h-[6rem] flex items-center justify-around sticky">
       <div className="h-full flex items-center">
         <h1 className="text-2xl text-white font-bold mx-2">React Movies</h1>
-        <LogosReact width={40}/>
+        <FaReact size={40} color={colors.blue['500']}/>
       </div>
       <nav className="w-80 flex justify-center">
         <Link href='/home' className="text-xl text-white font-bold mx-2 hover:text-teal-400">Inicio</Link>

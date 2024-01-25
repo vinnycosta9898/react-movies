@@ -3,7 +3,6 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { Header } from "@/components/Header";
 import { apiMovies } from "@/lib/axios";
 import { MovieCard } from "@/components/MovieCard";
-import { Paginate } from "@/components/Paginate";
 import { FiSearch } from "react-icons/fi";
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -90,20 +89,30 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<any, { movie: string}> = async ({ params }) => {
   const movie = params?.movie
 
-  const response = await apiMovies.get('/search/movie', {
-    params:{
-      api_key: process.env.API_KEY_TMDB,
-      language: 'pt-br',
-      query: movie
+  try{
+    const response = await apiMovies.get('/search/movie', {
+      params:{
+        api_key: process.env.API_KEY_TMDB,
+        language: 'pt-br',
+        query: movie
+      }
+    })
+  
+    const movies = response.data.results.slice(0, 12)
+  
+    return{
+      props:{
+        movies
+      },
+      revalidate: 60 * 60 * 24 * 7 // 7 days
     }
-  })
-
-  const movies = response.data.results.slice(0, 12)
-
-  return{
-    props:{
-      movies
-    },
-    revalidate: 60 * 60 * 24 * 7 // 7 days
+  }catch(err){
+    return{
+      props:{
+        movies: []
+      }
+    }
   }
+
+  
 }

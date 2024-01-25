@@ -88,20 +88,30 @@ export default function Home({ movies } : MovieProps){
 
 export const getStaticProps: GetStaticProps = async () => {
 
-  const response = await apiMovies.get('/movie/now_playing', {
-    params:{
-      api_key: process.env.API_KEY_TMDB,
-      language: 'pt-br',
+  try{
+    const response = await apiMovies.get('/movie/now_playing', {
+      params:{
+        api_key: process.env.API_KEY_TMDB,
+        language: 'pt-br',
+      }
+    })
+  
+    const movies = response.data.results.slice(0, 12)
+  
+    return{
+      props:{
+        movies
+      },
+      revalidate: 60 * 60 * 24 * 7 // 7 days
     }
-  })
-
-  const movies = response.data.results.slice(0, 12)
-
-  return{
-    props:{
-      movies
-    },
-    revalidate: 60 * 60 * 24 * 7 // 7 days
+  }catch(err){
+    return{
+      props:{
+        movies: []
+      }
+    }
   }
+
+ 
 }
 

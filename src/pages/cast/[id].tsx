@@ -50,21 +50,31 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<any, {id: string}> = async ({ params }) => {
   const id = params?.id
 
-  const response = await apiMovies.get(`/movie/${id}/credits`, {
-    params:{
-      api_key: process.env.API_KEY_TMDB,
-      language: 'pt-br',
+  try{
+    const response = await apiMovies.get(`/movie/${id}/credits`, {
+      params:{
+        api_key: process.env.API_KEY_TMDB,
+        language: 'pt-br',
+      }
+    })
+  
+    const cast = response.data.cast.slice(0, 36)
+  
+    return{
+      props:{
+        cast
+      },
+      revalidate: 60 * 60 * 24 * 7 // 7 days
     }
-  })
-
-  const cast = response.data.cast.slice(0, 36)
-
-  return{
-    props:{
-      cast
-    },
-    revalidate: 60 * 60 * 24 * 7 // 7 days
+  }catch(err){
+    return{
+      props:{
+        cast: []
+      }
+    }
   }
+
+  
 }
 
 

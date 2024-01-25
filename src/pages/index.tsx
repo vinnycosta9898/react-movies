@@ -1,7 +1,8 @@
-import { LogosGoogleIcon } from "@/components/Icons/Google";
-import { LogosReact } from "@/components/Icons/React";
+import colors from "tailwindcss/colors";
+import { FcGoogle } from "react-icons/fc";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
+import { FaReact } from "react-icons/fa";
 
 export default function Home() {
   const router = useRouter()
@@ -27,11 +28,11 @@ export default function Home() {
       <div className="flex-1 h-full text-2xl text-white flex flex-col items-center">
         <div className="w-62 h-44 flex items-center justify-around mt-12">
           <h1 className="text-2xl mx-4">React Movies</h1>
-          <LogosReact width={60}/>
+          <FaReact size={60} color={colors.blue['500']}/>
         </div>
 
         <button className="w-64 h-12 text-xl bg-gray_300 flex justify-around items-center rounded-lg" onClick={() => handleSignIn("google")}>
-          <LogosGoogleIcon/>
+          <FcGoogle size={30}/>
           Entrar com Google
         </button>
         

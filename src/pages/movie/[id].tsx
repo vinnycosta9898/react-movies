@@ -36,8 +36,8 @@ export default function Movie({ ...props } : MovieProps){
   function handleSaveMovie(movieId: string){
     const moviesSaved = localStorage.getItem('@react-movies:movie')
     const moviesList = JSON.parse(moviesSaved || '[]')
-    const hasMovieOnList = moviesList.some((movie: MovieProps) => {
-      return movie.movie?.id === movieId
+    const hasMovieOnList = moviesList.some((movie: any) => {
+      return movie.id === movieId
     })
 
     if(hasMovieOnList){
@@ -148,20 +148,30 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<any, {id: string}> = async ({ params }) => {
   const id = params?.id
 
-  const response = await apiMovies.get(`/movie/${id}`, {
-    params:{
-      api_key: process.env.API_KEY_TMDB,
-      language: 'pt-br',
+  try{  
+    const response = await apiMovies.get(`/movie/${id}`, {
+      params:{
+        api_key: process.env.API_KEY_TMDB,
+        language: 'pt-br',
+      }
+    })
+  
+    const movie = response.data
+  
+    return{
+      props:{
+        movie
+      },
+      revalidate: 60 * 60 * 24 * 7 // 7 days
     }
-  })
-
-  const movie = response.data
-
-  return{
-    props:{
-      movie
-    },
-    revalidate: 60 * 60 * 24 * 7 // 7 days
+  }catch(err){
+    return{
+      props:{
+        movie: []
+      }
+    }
   }
+
+ 
 }
 
