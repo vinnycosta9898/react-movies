@@ -32,13 +32,20 @@ interface MovieProps{
   }
 }
 
+interface MovieStorageProps{
+  id: string
+  poster_path: string
+  title: string
+}
+
 export default function Movie({ ...props } : MovieProps){
   
-  function handleSaveMovie(movieId: string){
+  function handleSaveMovie({ id , poster_path, title } : MovieStorageProps){
     const moviesSaved = localStorage.getItem('@react-movies:movie')
     const moviesList = JSON.parse(moviesSaved || '[]')
-    const hasMovieOnList = moviesList.some((movie: string) => {
-      return movie === movieId
+    const hasMovieOnList = moviesList.some((movie: MovieStorageProps) => {
+      console.log(movie.id, id)
+      return movie.id === id
     })
 
     if(hasMovieOnList){
@@ -46,7 +53,12 @@ export default function Movie({ ...props } : MovieProps){
       return;
     }
 
-    moviesList.push(movieId)
+    moviesList.push({
+      id,
+      poster_path,
+      title
+    })
+
     localStorage.setItem('@react-movies:movie', JSON.stringify(moviesList))
     toast.success("Filme adicionado aos favoritos")
   }
@@ -76,7 +88,7 @@ export default function Movie({ ...props } : MovieProps){
           <div className="flex justify-around mt-2">
             <button 
               className="w-[11rem] h-12 rounded-lg bg-gray_300 text-danger"
-              onClick={() => handleSaveMovie(props.movie.id)}
+              onClick={() => handleSaveMovie({ id: props.movie.id, poster_path: props.movie.poster_path, title:props.movie.title})}
             >
               Adicionar aos favoritos
             </button>

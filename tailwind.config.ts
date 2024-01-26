@@ -9,12 +9,16 @@ const config: Config = {
   theme: {
     colors:{
       black: '#000',
+      
       blue: '#1DA1F2',
       bronze: '#E29144',
       danger: '#FF4D4D', 
+      
       gray_100: '#696969',
+      gray_200: '#303030',
       gray_300: '#181818',
       gray_500: '#101010',
+      
       green: '#2E8B57',
       white: '#FFF',
       yellow: '#DAA520'
