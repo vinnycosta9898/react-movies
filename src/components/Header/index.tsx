@@ -18,7 +18,7 @@ export function Header(){
       </div>
       <nav className="w-80 flex justify-center">
         <Link href='/home' className="text-xl text-white font-bold mx-2 hover:text-teal-400">Inicio</Link>
-        <Link href='/home' className="text-xl text-white font-bold mx-2  hover:text-teal-400">Meu Filmes</Link>
+        <Link href='/favorites' className="text-xl text-white font-bold mx-2  hover:text-teal-400">Meu Filmes</Link>
       </nav>
 
       <Link href='/profile' className="flex items-center justify-center">
