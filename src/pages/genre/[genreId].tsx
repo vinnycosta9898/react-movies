@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
 
 import { FiSearch } from "react-icons/fi";
@@ -29,16 +29,16 @@ const formMovieSchema = z.object({
 
 type FormMovieData = z.infer<typeof formMovieSchema>
 
-export default function Home({ movies } : MovieProps){   
+export default function Genre({ movies } : MovieProps){
   const { 
-      register, 
-      handleSubmit, 
-      formState: { errors } 
-      } = useForm<FormMovieData>({
-          resolver: zodResolver(formMovieSchema)
-      })
-  
-  
+    register, 
+    handleSubmit, 
+    formState: { errors } 
+    } = useForm<FormMovieData>({
+        resolver: zodResolver(formMovieSchema)
+    })
+
+
   const router = useRouter()
 
   async function handleSearchMovie(movie: FormMovieData){
@@ -105,13 +105,25 @@ export default function Home({ movies } : MovieProps){
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  return{
+    paths: [
+      { params: {genreId: '12'} }
+    ],
+    fallback :'blocking'
+  }
+}
+
+
+export const getStaticProps: GetStaticProps<any, { genreId: string}> = async ({ params }) => {
+  const genreId = params?.genreId
 
   try{
-    const response = await apiMovies.get('/movie/now_playing', {
+    const response = await apiMovies.get('/discover/movie', {
       params:{
         api_key: process.env.API_KEY_TMDB,
         language: 'pt-br',
+        with_genres: genreId
       }
     })
   
@@ -130,6 +142,5 @@ export const getStaticProps: GetStaticProps = async () => {
       }
     }
   }
- 
 }
 
