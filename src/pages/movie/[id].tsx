@@ -7,6 +7,7 @@ import { MovieInfoCard } from "@/components/MovieInfoCard"
 import { formatDate } from "@/utils/formatDate"
 import { formatCurrency } from "@/utils/formatCurrency"
 import Link from "next/link"
+import { toast } from "sonner"
 
 interface MovieProps{
   movie:{
@@ -36,18 +37,18 @@ export default function Movie({ ...props } : MovieProps){
   function handleSaveMovie(movieId: string){
     const moviesSaved = localStorage.getItem('@react-movies:movie')
     const moviesList = JSON.parse(moviesSaved || '[]')
-    const hasMovieOnList = moviesList.some((movie: any) => {
-      return movie.id === movieId
+    const hasMovieOnList = moviesList.some((movie: string) => {
+      return movie === movieId
     })
 
     if(hasMovieOnList){
-      alert("Filme já salvo")
+      toast.warning("Filme já salvo")
       return;
     }
 
     moviesList.push(movieId)
     localStorage.setItem('@react-movies:movie', JSON.stringify(moviesList))
-    alert("Filme adicionado aos favoritos")
+    toast.success("Filme adicionado aos favoritos")
   }
 
   return(
