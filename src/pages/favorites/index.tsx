@@ -3,19 +3,32 @@ import { useEffect, useState } from "react";
 
 import { FavoriteCard } from "@/components/FavoriteCard";
 import { Header } from "@/components/Header";
+import { toast } from "sonner";
 
 interface FavoriteCardProps{
-  movieId: string 
+  id: string 
   poster_path: string
   title: string
 }[]
 
 export default function Favorites(){
   const [moviesSaved, setMoviesSaved] = useState<FavoriteCardProps[]>([])
+  
   function getMoviesSavedOnStorage(){
     const listMovies = localStorage.getItem('@react-movies:movie')
     const moviesList = JSON.parse(listMovies || '[]')
     setMoviesSaved(moviesList)
+  }
+
+  function handleRemoveMovieOnFavoriteList(movieId: string){
+    const movieRemoved = moviesSaved.filter((movie) => {
+      return movie.id !== movieId
+    })
+
+    setMoviesSaved(movieRemoved)
+    localStorage.setItem('@react-movies:movie', JSON.stringify(movieRemoved))
+    toast.success("Filme removido com sucesso")
+
   }
 
   useEffect(() => {
@@ -29,8 +42,10 @@ export default function Favorites(){
         {moviesSaved.length !== 0 ? moviesSaved.map((movie) => {
           return(
             <FavoriteCard
+              id={movie.id}
               poster_path={movie.poster_path}
               title={movie.title}
+              onRemovedMovie={handleRemoveMovieOnFavoriteList}
             />
           )
         }) 
