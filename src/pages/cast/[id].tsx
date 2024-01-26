@@ -27,7 +27,7 @@ export default function Cast({ cast } : CastProps){
                 key={item.id}
                 name={item.name}
                 character={item.character}
-                profile_path={item.profile_path}
+                profile_path={item.profile_path ? item.profile_path : 'user-without-photo'}
               />
             </div>
           )

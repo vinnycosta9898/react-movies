@@ -14,6 +14,7 @@ const config: Config = {
       bronze: '#E29144',
       danger: '#FF4D4D', 
       
+      gray: '#cccccc',
       gray_100: '#696969',
       gray_200: '#303030',
       gray_300: '#181818',

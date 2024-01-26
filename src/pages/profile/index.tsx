@@ -13,7 +13,6 @@ export default function Profile(){
     await signOut()
   }
   
-  console.log(session.data?.user.avatar_url)
   return(
     <div className="w-screen h-screen bg-black">
       <Header/>
