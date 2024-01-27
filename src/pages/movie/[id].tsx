@@ -95,6 +95,7 @@ export default function Movie({ ...props } : MovieProps){
             <Link 
               href={`https://www.youtube.com/results?search_query=${props.movie.title}+Trailer`}
               className="w-[11rem] h-12 flex items-center justify-center rounded-lg bg-gray_300 text-green"
+              target="_blank"
             >
               Assistir trailer
             </Link>

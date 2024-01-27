@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Link from "next/link";
 import { GetStaticProps } from "next";
 import { useRouter } from "next/router";
@@ -13,7 +14,9 @@ import { apiMovies } from "@/lib/axios";
 
 import { MovieCard } from "@/components/MovieCard";
 import { Paginate } from "@/components/Paginate";
-import { GenderMovieButton } from "@/components/GenderMovieButton";
+import { GenderMovieButton } from "@/components/GenreMovieButton";
+import { useState } from "react";
+import { GenreButtons } from "@/components/GenreButtons";
 
 interface MovieProps{
   movies:{
@@ -29,7 +32,10 @@ const formMovieSchema = z.object({
 
 type FormMovieData = z.infer<typeof formMovieSchema>
 
-export default function Home({ movies } : MovieProps){   
+export default function Home({ movies } : MovieProps){
+  const [buttonSelected, setButtonSelected] = useState(0)
+  const [buttonIsActive, setButtonIsActive] = useState(false)
+
   const { 
       register, 
       handleSubmit, 
@@ -37,8 +43,7 @@ export default function Home({ movies } : MovieProps){
       } = useForm<FormMovieData>({
           resolver: zodResolver(formMovieSchema)
       })
-  
-  
+      
   const router = useRouter()
 
   async function handleSearchMovie(movie: FormMovieData){
@@ -46,8 +51,12 @@ export default function Home({ movies } : MovieProps){
   }
 
   function handleSelectedGenre(genreId: number){
+    setButtonSelected(genreId)
+    setButtonIsActive(!buttonIsActive)
     router.push(`/genre/${genreId}`)
   }
+
+  console.log(buttonSelected)
   
   return(
     <div className="min-w-screen min-h-screen bg-black flex flex-col justify-center">
@@ -55,20 +64,7 @@ export default function Home({ movies } : MovieProps){
       <div className="w-full h-full items-center justify-center">
         <div className="text-white font-bold flex flex-col items-center mb-8">
           <h1 className="text-white text-3xl my-4">Filmes no cinema</h1>
-          <div className="grid grid-cols-4 my-8">
-            <GenderMovieButton genderMovie="Aventura" onClick={() => handleSelectedGenre(12)}/>
-            <GenderMovieButton genderMovie="Animação" onClick={() => handleSelectedGenre(16)}/>
-            <GenderMovieButton genderMovie="Ação" onClick={() => handleSelectedGenre(28)}/>
-            <GenderMovieButton genderMovie="Comédia" onClick={() => handleSelectedGenre(35)}/>
-            <GenderMovieButton genderMovie="Crime" onClick={() => handleSelectedGenre(80)}/>
-            <GenderMovieButton genderMovie="Documentário" onClick={() => handleSelectedGenre(99)}/>
-            <GenderMovieButton genderMovie="Drama" onClick={() => handleSelectedGenre(18)}/>
-            <GenderMovieButton genderMovie="Família" onClick={() => handleSelectedGenre(10751)}/>
-            <GenderMovieButton genderMovie="Fantasia" onClick={() => handleSelectedGenre(14)}/>
-            <GenderMovieButton genderMovie="História" onClick={() => handleSelectedGenre(36)}/>
-            <GenderMovieButton genderMovie="Romance" onClick={() => handleSelectedGenre(10749)}/>
-            <GenderMovieButton genderMovie="Terror" onClick={() => handleSelectedGenre(27)}/>
-          </div>
+          <GenreButtons/>
           <form className="flex gap-2" onSubmit={handleSubmit(handleSearchMovie)}>
             <input 
               type="text" 

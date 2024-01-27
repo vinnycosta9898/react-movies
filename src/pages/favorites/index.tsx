@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -37,6 +38,9 @@ export default function Favorites(){
 
   return(
     <div className="min-w-screen min-h-screen bg-black flex flex-col items-center">
+      <Head>
+        <title>React Movies | Favorites</title>
+      </Head>
       <Header/>
       <div>
         {moviesSaved.length !== 0 ? moviesSaved.map((movie) => {

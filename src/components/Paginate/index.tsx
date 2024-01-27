@@ -10,8 +10,6 @@ export function Paginate(){
   const [page, setPage] = useState(1)
   const router = useRouter()
   const actualPage = router.query
-
-  console.log(actualPage)
   
   function handleChangePage(id: number){
     if(id === 1){

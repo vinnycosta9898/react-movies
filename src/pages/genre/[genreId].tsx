@@ -13,9 +13,13 @@ import { apiMovies } from "@/lib/axios";
 
 import { MovieCard } from "@/components/MovieCard";
 import { Paginate } from "@/components/Paginate";
-import { GenderMovieButton } from "@/components/GenderMovieButton";
+import { GenderMovieButton } from "@/components/GenreMovieButton";
 
-interface MovieProps{
+import { matchGenreMovieByGenreId } from "@/utils/matchGenreMovieByUrl";
+import { useState } from "react";
+import Head from "next/head";
+
+interface GenreProps{
   movies:{
     id: string
     poster_path: string
@@ -29,7 +33,7 @@ const formMovieSchema = z.object({
 
 type FormMovieData = z.infer<typeof formMovieSchema>
 
-export default function Genre({ movies } : MovieProps){
+export default function Genre({ movies } : GenreProps){  
   const { 
     register, 
     handleSubmit, 
@@ -40,7 +44,8 @@ export default function Genre({ movies } : MovieProps){
 
 
   const router = useRouter()
-
+  const genreId = router.query
+  
   async function handleSearchMovie(movie: FormMovieData){
     router.push(`search/${movie.movie}`)
   }
@@ -54,20 +59,20 @@ export default function Genre({ movies } : MovieProps){
       <Header/>
       <div className="w-full h-full items-center justify-center">
         <div className="text-white font-bold flex flex-col items-center mb-8">
-          <h1 className="text-white text-3xl my-4">Filmes no cinema</h1>
+          <h1 className="text-white text-3xl my-4">{matchGenreMovieByGenreId(Number(genreId.genreId))}</h1>
           <div className="grid grid-cols-4 my-8">
-            <GenderMovieButton genderMovie="Aventura" onClick={() => handleSelectedGenre(12)}/>
-            <GenderMovieButton genderMovie="Animação" onClick={() => handleSelectedGenre(16)}/>
-            <GenderMovieButton genderMovie="Ação" onClick={() => handleSelectedGenre(28)}/>
-            <GenderMovieButton genderMovie="Comédia" onClick={() => handleSelectedGenre(35)}/>
-            <GenderMovieButton genderMovie="Crime" onClick={() => handleSelectedGenre(80)}/>
-            <GenderMovieButton genderMovie="Documentário" onClick={() => handleSelectedGenre(99)}/>
-            <GenderMovieButton genderMovie="Drama" onClick={() => handleSelectedGenre(18)}/>
-            <GenderMovieButton genderMovie="Família" onClick={() => handleSelectedGenre(10751)}/>
-            <GenderMovieButton genderMovie="Fantasia" onClick={() => handleSelectedGenre(14)}/>
-            <GenderMovieButton genderMovie="História" onClick={() => handleSelectedGenre(36)}/>
-            <GenderMovieButton genderMovie="Romance" onClick={() => handleSelectedGenre(10749)}/>
-            <GenderMovieButton genderMovie="Terror" onClick={() => handleSelectedGenre(27)}/>
+            <GenderMovieButton  genderMovie="Aventura" onClick={() => handleSelectedGenre(12)}/>
+            <GenderMovieButton  genderMovie="Animação" onClick={() => handleSelectedGenre(16)}/>
+            <GenderMovieButton  genderMovie="Ação" onClick={() => handleSelectedGenre(28)}/>
+            <GenderMovieButton  genderMovie="Comédia" onClick={() => handleSelectedGenre(35)}/>
+            <GenderMovieButton  genderMovie="Crime" onClick={() => handleSelectedGenre(80)}/>
+            <GenderMovieButton  genderMovie="Documentário" onClick={() => handleSelectedGenre(99)}/>
+            <GenderMovieButton  genderMovie="Drama" onClick={() => handleSelectedGenre(18)}/>
+            <GenderMovieButton  genderMovie="Família" onClick={() => handleSelectedGenre(10751)}/>
+            <GenderMovieButton  genderMovie="Fantasia" onClick={() => handleSelectedGenre(14)}/>
+            <GenderMovieButton  genderMovie="História" onClick={() => handleSelectedGenre(36)}/>
+            <GenderMovieButton  genderMovie="Romance" onClick={() => handleSelectedGenre(10749)}/>
+            <GenderMovieButton  genderMovie="Terror" onClick={() => handleSelectedGenre(27)}/>
           </div>
           <form className="flex gap-2" onSubmit={handleSubmit(handleSearchMovie)}>
             <input 
