@@ -7,13 +7,10 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Header } from "@/components/Header";
-
 import { apiMovies } from "@/lib/axios";
 
 import { MovieCard } from "@/components/MovieCard";
 import { Paginate } from "@/components/Paginate";
-import { GenderMovieButton } from "@/components/GenreMovieButton";
 
 import { matchGenreMovieByGenreId } from "@/utils/matchGenreMovieByUrl";
 import { GenreButtons } from "@/components/GenreButtons";
@@ -33,7 +30,7 @@ const formMovieSchema = z.object({
 
 type FormMovieData = z.infer<typeof formMovieSchema>
 
-export default function Genre({ movies } : GenreProps){  
+export default function GenrePage({ movies } : GenreProps){  
   const { 
     register, 
     handleSubmit, 
@@ -44,21 +41,17 @@ export default function Genre({ movies } : GenreProps){
 
 
   const router = useRouter()
-  const genreId = router.query
+  const { genreId, page } = router.query
   
   async function handleSearchMovie(movie: FormMovieData){
     router.push(`search/${movie.movie}`)
-  }
-
-  function handleSelectedGenre(genreId: number){
-    router.push(`/genre/${genreId}`)
   }
   
   return(
     <div className="min-w-screen min-h-screen bg-black flex flex-col justify-center">
       <div className="w-full h-full items-center justify-center">
         <div className="text-white font-bold flex flex-col items-center mb-8">
-          <h1 className="text-white text-3xl my-4">{matchGenreMovieByGenreId(Number(genreId.genreId))}</h1>
+          <h1 className="text-white text-3xl my-4">{matchGenreMovieByGenreId(Number(genreId))}</h1>
           <GenreButtons/>
           <form className="flex gap-2" onSubmit={handleSubmit(handleSearchMovie)}>
             <input 
@@ -92,7 +85,7 @@ export default function Genre({ movies } : GenreProps){
       <footer className="w-full flex justify-center">
         <Paginate
           withGenre={true}
-          genreId={String(genreId.genreId)}
+          genreId={String(genreId)}
         />
       </footer>      
     </div>
@@ -102,22 +95,32 @@ export default function Genre({ movies } : GenreProps){
 export const getStaticPaths: GetStaticPaths = async () => {
   return{
     paths: [
-      { params: {genreId: '12'} }
+      { 
+        params: {
+          genreId: '12',
+          page: '3'
+        }
+      }
     ],
     fallback :'blocking'
   }
 }
 
 
-export const getStaticProps: GetStaticProps<any, { genreId: string}> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<any, { genreId: string, page: string}> = async ({ params }) => {
   const genreId = params?.genreId
+  const page = params?.page
+
+  console.log(genreId)
+  console.log(page)
 
   try{
     const response = await apiMovies.get('/discover/movie', {
       params:{
         api_key: process.env.API_KEY_TMDB,
         language: 'pt-br',
-        with_genres: genreId
+        with_genres: genreId,
+        page: page
       }
     })
   

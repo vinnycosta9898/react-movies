@@ -6,31 +6,38 @@ import { HiOutlineChevronLeft,
          HiOutlineChevronDoubleRight 
         } from "react-icons/hi";
 
-export function Paginate(){
+interface PaginateProps{
+  withGenre?: boolean
+  genreId?: string
+}
+
+export function Paginate({ withGenre, genreId } : PaginateProps){
   const [page, setPage] = useState(1)
   const router = useRouter()
   const actualPage = router.query
+
+  console.log(genreId)
   
   function handleChangePage(id: number){
     if(id === 1){
       setPage(1)
-      router.push('/home')
+      router.push(withGenre ? `/genre/${genreId}/1` : '/home')
     }
     else if(id === 2){
       setPage( page > 1 ? page - 1 : page)
       if(page !== 1 ){
-        router.push(`/page/${page >= 1 ? page - 1 : page}`)
+        router.push(withGenre ? `/genre/${genreId}/${page >= 1 ? page - 1 : page}` : `/page/${page >= 1 ? page - 1 : page}`)
       }
     }
     else if(id === 3){
       setPage(page < 10 ? page + 1 : page)
       if(page !== 10){
-        router.push(`/page/${page <= 10 ? page + 1 : page}`)
+        router.push(withGenre? `/genre/${genreId}/${page <= 10 ? page + 1 : page}` :`/page/${page <= 10 ? page + 1 : page}`)
       }
     }
     else{
       setPage(10)
-      router.push(`/page/${10}`)
+      router.push(withGenre ? `/genre/${genreId}/10` : `/page/10`)
     }
 
   }

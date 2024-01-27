@@ -100,11 +100,11 @@ export default function Movie({ ...props } : MovieProps){
           </div>
         </aside>
         <div className="flex flex-col items-center">
-        <div className="w-[50rem] h-[20rem] flex flex-col justify-center items-center px-8 inset-0 bg-[#ffffff10] backdrop-blur-md rounded-lg">
+        <div className="w-[50rem] max-h-[40rem] flex flex-col justify-center items-center px-8 inset-0 bg-[#ffffff10] backdrop-blur-md rounded-lg">
           <h1 className=" text-3xl text-white text-center">{props.movie.title}</h1>
           <h3 className="text-bronze mt-2 text-center">{props.movie.tagline ? props.movie.tagline : 'Frase indisponível'}</h3>
           <h4 className="text-bronze mt-2">{" " + props.movie.genres.map(genre => genre.name)}</h4>
-          <span className="text-white text-center my-4">{props.movie.overview ? props.movie.overview : 'Sinopse indísponível'}</span>
+          <span className="text-white text-center my-4 overflow-hidden oveflow-hidden overflow-ellipsis">{props.movie.overview ? props.movie.overview : 'Sinopse indísponível'}</span>
           <Link href={`/cast/${props.movie.id}`} className="text-gray_100 text-xl font-bold">Ver elenco</Link>
         </div>
 

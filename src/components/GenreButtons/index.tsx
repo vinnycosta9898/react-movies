@@ -14,7 +14,7 @@ export function GenreButtons(){
   }
   
   return(
-    <div className="grid grid-cols-4 my-8">
+    <div className="grid grid-cols-6 my-8">
     <GenderMovieButton 
       genderMovie="Aventura" 
       onClick={() => handleSelectedGenre(12)}

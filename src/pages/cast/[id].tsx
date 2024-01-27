@@ -14,7 +14,7 @@ interface CastProps{
 export default function Cast({ cast } : CastProps){
   return(
     <div className="min-w-screen min-h-screen bg-black">
-      <div className="flex flex-col items-center mt-16">
+      <div className="flex flex-col items-center py-16">
         <h1 className="text-4xl text-white font-bold">Elenco do filme</h1>
         <div className="grid grid-cols-3">
         {cast.map((item) => {
