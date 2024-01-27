@@ -52,12 +52,32 @@ export function GenreButtons(){
       onClick={() => handleSelectedGenre(14)}
     />
     <GenderMovieButton 
+      genderMovie="Faroeste"
+      onClick={() => handleSelectedGenre(37)}
+    />
+    <GenderMovieButton 
+      genderMovie="Fiçção Cientifica"
+      onClick={() => handleSelectedGenre(878)}
+    />
+    <GenderMovieButton 
+      genderMovie="Guerra"
+      onClick={() => handleSelectedGenre(10752)}
+    />
+    <GenderMovieButton 
       genderMovie="História" 
       onClick={() => handleSelectedGenre(36)}
     />
     <GenderMovieButton 
+      genderMovie="Musical" 
+      onClick={() => handleSelectedGenre(10402)}
+    />
+    <GenderMovieButton 
       genderMovie="Romance" 
       onClick={() => handleSelectedGenre(10749)}
+    />
+    <GenderMovieButton 
+      genderMovie="Suspense" 
+      onClick={() => handleSelectedGenre(9648)}
     />
     <GenderMovieButton 
       genderMovie="Terror"
