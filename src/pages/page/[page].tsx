@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { GetServerSideProps } from "next";
-import { Header } from "@/components/Header";
 import { apiMovies } from "@/lib/axios";
 import { MovieCard } from "@/components/MovieCard";
 import { Paginate } from "@/components/Paginate";
@@ -18,7 +17,6 @@ export default function Page({ movies } : MovieProps){
   
   return(
     <div className="min-w-screen min-h-screen bg-black flex flex-col justify-center">
-      <Header/>
       <div className="w-full h-full flex flex-col items-center justify-center">
           <h1 className="text-white text-3xl font-bold my-4">Filmes no cinema</h1>
           <GenreButtons/>

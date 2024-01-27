@@ -4,6 +4,7 @@ import { SessionProvider } from "next-auth/react";
 import "@/styles/globals.css";
 import 'tailwindcss/tailwind.css'
 import { Toaster, toast } from 'sonner'
+import { Header } from "@/components/Header";
 
 
 export default function App({ 
@@ -12,7 +13,8 @@ export default function App({
     }: AppProps) {
   return (
       <SessionProvider session={session}>
-            <Toaster richColors />
+          <Toaster richColors />
+          <Header/>
           <Component {...pageProps} />
       </SessionProvider>
 )}

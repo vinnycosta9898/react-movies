@@ -11,7 +11,7 @@ export function Header(){
   const username = session.data?.user.name
 
   return(
-    <div className="w-full h-[6rem] flex items-center justify-around sticky">
+    <div className="w-full h-[6rem] bg-black flex items-center justify-around sticky">
       <div className="h-full flex items-center">
         <h1 className="text-2xl text-white font-bold mx-2">React Movies</h1>
         <FaReact size={40} color={colors.blue['500']}/>

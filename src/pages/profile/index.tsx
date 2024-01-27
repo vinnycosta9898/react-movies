@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { Header } from "@/components/Header";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -14,10 +13,9 @@ export default function Profile(){
   }
   
   return(
-    <div className="w-screen h-screen bg-black">
-      <Header/>
+    <div className="w-screen min-h-screen bg-black">
       <div>
-        <div className="flex flex-col items-center mt-16">
+        <div className="flex flex-col items-center">
           <Image
             src={session.data?.user.avatar_url as string}
             alt={session.data?.user.name as string}

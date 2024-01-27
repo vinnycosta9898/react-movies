@@ -16,8 +16,8 @@ import { Paginate } from "@/components/Paginate";
 import { GenderMovieButton } from "@/components/GenreMovieButton";
 
 import { matchGenreMovieByGenreId } from "@/utils/matchGenreMovieByUrl";
-import { useState } from "react";
-import Head from "next/head";
+import { GenreButtons } from "@/components/GenreButtons";
+
 
 interface GenreProps{
   movies:{
@@ -56,24 +56,10 @@ export default function Genre({ movies } : GenreProps){
   
   return(
     <div className="min-w-screen min-h-screen bg-black flex flex-col justify-center">
-      <Header/>
       <div className="w-full h-full items-center justify-center">
         <div className="text-white font-bold flex flex-col items-center mb-8">
           <h1 className="text-white text-3xl my-4">{matchGenreMovieByGenreId(Number(genreId.genreId))}</h1>
-          <div className="grid grid-cols-4 my-8">
-            <GenderMovieButton  genderMovie="Aventura" onClick={() => handleSelectedGenre(12)}/>
-            <GenderMovieButton  genderMovie="Animação" onClick={() => handleSelectedGenre(16)}/>
-            <GenderMovieButton  genderMovie="Ação" onClick={() => handleSelectedGenre(28)}/>
-            <GenderMovieButton  genderMovie="Comédia" onClick={() => handleSelectedGenre(35)}/>
-            <GenderMovieButton  genderMovie="Crime" onClick={() => handleSelectedGenre(80)}/>
-            <GenderMovieButton  genderMovie="Documentário" onClick={() => handleSelectedGenre(99)}/>
-            <GenderMovieButton  genderMovie="Drama" onClick={() => handleSelectedGenre(18)}/>
-            <GenderMovieButton  genderMovie="Família" onClick={() => handleSelectedGenre(10751)}/>
-            <GenderMovieButton  genderMovie="Fantasia" onClick={() => handleSelectedGenre(14)}/>
-            <GenderMovieButton  genderMovie="História" onClick={() => handleSelectedGenre(36)}/>
-            <GenderMovieButton  genderMovie="Romance" onClick={() => handleSelectedGenre(10749)}/>
-            <GenderMovieButton  genderMovie="Terror" onClick={() => handleSelectedGenre(27)}/>
-          </div>
+          <GenreButtons/>
           <form className="flex gap-2" onSubmit={handleSubmit(handleSearchMovie)}>
             <input 
               type="text" 

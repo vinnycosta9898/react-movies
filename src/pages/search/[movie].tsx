@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { Header } from "@/components/Header";
 import { apiMovies } from "@/lib/axios";
 import { MovieCard } from "@/components/MovieCard";
 import { FiSearch } from "react-icons/fi";
@@ -40,7 +39,6 @@ export default function Search({ movies } : MovieProps){
 
   return(
     <div className="min-w-screen min-h-screen bg-black flex flex-col justify-center">
-      <Header/>
       <div className="w-full h-full items-center justify-center">
         <div className="text-white font-bold flex flex-col items-center mb-8">
           <h1 className="text-white text-3xl my-4">Filmes no cinema</h1>

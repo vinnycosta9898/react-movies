@@ -60,7 +60,6 @@ export default function Home({ movies } : MovieProps){
   
   return(
     <div className="min-w-screen min-h-screen bg-black flex flex-col justify-center">
-      <Header/>
       <div className="w-full h-full items-center justify-center">
         <div className="text-white font-bold flex flex-col items-center mb-8">
           <h1 className="text-white text-3xl my-4">Filmes no cinema</h1>

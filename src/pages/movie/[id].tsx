@@ -1,7 +1,6 @@
 import Image from "next/image"
 import { GetStaticPaths, GetStaticProps } from "next"
 import { apiMovies } from "@/lib/axios"
-import { Header } from "@/components/Header"
 import { MovieInfoCard } from "@/components/MovieInfoCard"
 
 import { formatDate } from "@/utils/formatDate"
@@ -65,7 +64,6 @@ export default function Movie({ ...props } : MovieProps){
 
   return(
     <div className="min-w-screen min-h-screen bg-black flex flex-col items-center">
-      <Header/>
       <Image
             src={`https://image.tmdb.org/t/p/w500/${props.movie.backdrop_path}`}
             alt={`Banner do filme ${props.movie.title}`}

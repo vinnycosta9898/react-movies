@@ -1,5 +1,3 @@
-import Head from "next/head";
-import { Header } from "@/components/Header";
 import { apiMovies } from "@/lib/axios";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { CastCard } from "@/components/CastCard";
@@ -14,13 +12,8 @@ interface CastProps{
 }
 
 export default function Cast({ cast } : CastProps){
-  console.log(cast)
   return(
     <div className="min-w-screen min-h-screen bg-black">
-      <Head>
-        <title>React Movies | cast</title>
-      </Head>
-      <Header/>
       <div className="flex flex-col items-center mt-16">
         <h1 className="text-4xl text-white font-bold">Elenco do filme</h1>
         <div className="grid grid-cols-3">
