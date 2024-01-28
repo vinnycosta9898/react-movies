@@ -35,16 +35,18 @@ export default function Favorites(){
   }, [])
 
   return(
-    <div className="min-w-screen min-h-screen bg-black flex flex-col items-center">
+    <div className="w-screen min-h-screen bg-black flex flex-col items-center">
       <div>
         {moviesSaved.length !== 0 ? moviesSaved.map((movie) => {
           return(
-            <FavoriteCard
-              id={movie.id}
-              poster_path={movie.poster_path}
-              title={movie.title}
-              onRemovedMovie={handleRemoveMovieOnFavoriteList}
-            />
+            <div className="flex flex-col items-center justify-center">
+              <FavoriteCard
+                id={movie.id}
+                poster_path={movie.poster_path}
+                title={movie.title}
+                onRemovedMovie={handleRemoveMovieOnFavoriteList}
+              />
+            </div>
           )
         }) 
         : 

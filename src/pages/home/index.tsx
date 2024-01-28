@@ -1,4 +1,3 @@
-import Head from "next/head";
 import Link from "next/link";
 import { GetStaticProps } from "next";
 import { useRouter } from "next/router";
@@ -8,15 +7,15 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Header } from "@/components/Header";
-
 import { apiMovies } from "@/lib/axios";
 
 import { MovieCard } from "@/components/MovieCard";
 import { Paginate } from "@/components/Paginate";
-import { GenderMovieButton } from "@/components/GenreMovieButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GenreButtons } from "@/components/GenreButtons";
+
+import { Skeleton } from '@mui/material'
+import colors from "tailwindcss/colors";
 
 interface MovieProps{
   movies:{
@@ -35,6 +34,7 @@ type FormMovieData = z.infer<typeof formMovieSchema>
 export default function Home({ movies } : MovieProps){
   const [buttonSelected, setButtonSelected] = useState(0)
   const [buttonIsActive, setButtonIsActive] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const { 
       register, 
@@ -56,10 +56,12 @@ export default function Home({ movies } : MovieProps){
     router.push(`/genre/${genreId}`)
   }
 
-  console.log(buttonSelected)
+  useEffect(() => {
+    movies ? setIsLoading(false): setIsLoading(true)
+  }, [isLoading])
   
   return(
-    <div className="min-w-screen min-h-screen bg-black flex flex-col justify-center">
+    <div className="w-screen min-h-full bg-black flex flex-col items-center">
       <div className="w-full h-full items-center justify-center">
         <div className="text-white font-bold flex flex-col items-center mb-8">
           <h1 className="text-white text-3xl my-4">Filmes no cinema</h1>
@@ -77,16 +79,28 @@ export default function Home({ movies } : MovieProps){
           </form>
           {errors.movie? <span className="text-danger mt-2">{errors.movie.message}</span> : null}
         </div>
-          <div className="w-full h-full grid grid-cols-3 gap-4">
+          <div className="w-full h-full grid grid-cols-5 gap-4 xlg:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xsm:grid-cols-1">
             {movies.length > 0 && movies.map((movie) => {
               return(
                 <div className="flex flex-col items-center" key={movie.id}>
                   <Link href={`/movie/${movie.id}`}>
+                    {
+                    isLoading
+                      ?
+                    <Skeleton
+                      width={320}
+                      height={480}
+                      variant="rounded"
+                      animation="wave"
+                      sx={{ bgcolor: 'grey.900' }}
+                    />
+                      : 
                     <MovieCard
                       id={movie.id}
                       poster_path={movie.poster_path}
                       title={movie.title}
                     />
+                    }
                   </Link>
                 </div>
               )

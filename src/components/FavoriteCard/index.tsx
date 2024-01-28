@@ -12,7 +12,7 @@ interface FavoriteCardProps{
 export function FavoriteCard({ id, poster_path, title, onRemovedMovie } : FavoriteCardProps){
   
   return(
-    <div className="max-w-[30rem] max-h-36 bg-gray_300 rounded-lg flex items-center justify-between gap-8 my-4">
+    <div className="max-w-[40rem] max-h-36 bg-gray_300 rounded-lg flex items-center justify-between gap-8 my-4">
       <Image
         src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
         alt={`Imagem do file ${title}`}

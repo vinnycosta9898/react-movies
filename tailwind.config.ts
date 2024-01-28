@@ -29,6 +29,13 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      screens:{
+        'xlg': '1700px',
+        'lg': '1440px',
+        'md': '1150px',
+        'sm': '800px',
+        'xsm': '200px'
       }
     },
   },

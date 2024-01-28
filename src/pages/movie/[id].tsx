@@ -1,12 +1,16 @@
+import { useEffect, useState } from "react"
+import Link from "next/link"
 import Image from "next/image"
 import { GetStaticPaths, GetStaticProps } from "next"
+
 import { apiMovies } from "@/lib/axios"
 import { MovieInfoCard } from "@/components/MovieInfoCard"
 
 import { formatDate } from "@/utils/formatDate"
 import { formatCurrency } from "@/utils/formatCurrency"
-import Link from "next/link"
+
 import { toast } from "sonner"
+import { Skeleton } from "@mui/material"
 
 interface MovieProps{
   movie:{
@@ -38,8 +42,10 @@ interface MovieStorageProps{
 }
 
 export default function Movie({ ...props } : MovieProps){
+  const [isLoading, setIsLoading] = useState(false)
   
   function handleSaveMovie({ id , poster_path, title } : MovieStorageProps){
+    
     const moviesSaved = localStorage.getItem('@react-movies:movie')
     const moviesList = JSON.parse(moviesSaved || '[]')
     const hasMovieOnList = moviesList.some((movie: MovieStorageProps) => {
@@ -62,27 +68,57 @@ export default function Movie({ ...props } : MovieProps){
     toast.success("Filme adicionado aos favoritos")
   }
 
+  useEffect(() => {
+      props ? setIsLoading(false): setIsLoading(true)
+  }, [isLoading])
+
   return(
-    <div className="min-w-screen min-h-screen bg-black flex flex-col items-center">
-      <Image
-            src={`https://image.tmdb.org/t/p/w500/${props.movie.backdrop_path}`}
-            alt={`Banner do filme ${props.movie.title}`}
-            width={1200}
-            height={674}
-            quality={100}
-            className="rounded-lg"
-          />
+    <div className="min-w-screen w-full min-h-screen bg-black flex flex-col items-center">
+      {
+        isLoading 
+          ?
+        <Skeleton
+          width={1200}
+          height={674}
+          variant="rounded"
+          animation="wave"
+          sx={{ bgcolor: 'grey.900' }}
+        />
+          :
+        <Image
+          src={`https://image.tmdb.org/t/p/original/${props.movie.backdrop_path}`}
+          alt={`Banner do filme ${props.movie.title}`}
+          width={1200}
+          height={674}
+          quality={100}
+          className="rounded-lg"
+        />
+      }
+      
       <div className="w-full h-full flex justify-center gap-4 mt-8">
         <aside>
-          <Image
-            src={`https://image.tmdb.org/t/p/w500/${props.movie.poster_path}`}
-            alt={`Poster do filme ${props.movie.title}`}
-            width={360}
-            height={420}
-            quality={100}
-            priority
-            className="rounded-lg"
-          />
+          {
+            isLoading 
+              ? 
+            <Skeleton
+              width={360}
+              height={540}
+              variant="rounded"
+              animation="wave"
+              sx={{ bgcolor: 'grey.900' }}
+            />
+              : 
+            <Image
+              src={`https://image.tmdb.org/t/p/w500/${props.movie.poster_path}`}
+              alt={`Poster do filme ${props.movie.title}`}
+              width={360}
+              height={540}
+              quality={100}
+              priority
+              className="rounded-lg"
+            />
+        }
+          
           <div className="flex justify-around mt-2">
             <button 
               className="w-[11rem] h-12 rounded-lg bg-gray_300 text-danger"

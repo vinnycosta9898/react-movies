@@ -6,6 +6,12 @@
   overflow-x: hidden;
 }
 
+@screen xl {
+  .max-width-1040 {
+    grid-template-columns: 1fr;
+  }
+}
+
 ::-webkit-scrollbar {
   background: #000;
 }
