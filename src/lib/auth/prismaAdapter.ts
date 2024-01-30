@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next"
-import { Adapter } from "next-auth/adapters"
-import { prisma } from "../prisma"
-import { destroyCookie } from "nookies"
+import { NextApiRequest, NextApiResponse } from 'next'
+import { Adapter } from 'next-auth/adapters'
+import { prisma } from '../prisma'
+import { destroyCookie } from 'nookies'
 
 export function PrismaAdapter(
   req: NextApiRequest,
@@ -10,55 +10,55 @@ export function PrismaAdapter(
   return {
     async createUser(user) {
       const prismaUser = await prisma.user.create({
-        data:{
+        data: {
           name: user.name,
           email: user.email,
           avatar_url: user.avatar_url,
-        }
+        },
       })
 
-     destroyCookie({ res }, '@react-movies:userId', {
-      path: '/'
-     })
+      destroyCookie({ res }, '@react-movies:userId', {
+        path: '/',
+      })
 
-     return{
-      id: prismaUser.id,
-      name: prismaUser.name,
-      email: prismaUser.email,
-      avatar_url: prismaUser.avatar_url!,
-      emailVerified: null
-     }
+      return {
+        id: prismaUser.id,
+        name: prismaUser.name,
+        email: prismaUser.email,
+        avatar_url: prismaUser.avatar_url!,
+        emailVerified: null,
+      }
     },
 
     async getUser(id) {
       const user = await prisma.user.findUnique({
         where: {
-          id
-        }
+          id,
+        },
       })
 
-      if(!user) return null
+      if (!user) return null
 
       return {
         ...user,
         avatar_url: user.avatar_url!,
-        emailVerified: null
+        emailVerified: null,
       }
     },
 
     async getUserByEmail(email) {
       const user = await prisma.user.findUnique({
         where: {
-          email
-        }
+          email,
+        },
       })
 
-      if(!user) return null
+      if (!user) return null
 
       return {
         ...user,
         avatar_url: user.avatar_url!,
-        emailVerified: null
+        emailVerified: null,
       }
     },
 
@@ -67,41 +67,41 @@ export function PrismaAdapter(
         where: {
           provider_provider_account_id: {
             provider_account_id: providerAccountId,
-            provider
-          }
+            provider,
+          },
         },
         include: {
-          user: true
-        }
+          user: true,
+        },
       })
 
-      if(!account) return null
+      if (!account) return null
 
       const { user } = account
 
       return {
         ...user,
         avatar_url: user.avatar_url!,
-        emailVerified: null
+        emailVerified: null,
       }
     },
 
     async updateUser(user) {
       const updatedUser = await prisma.user.update({
         where: {
-          id: user.id
+          id: user.id,
         },
         data: {
           name: user.name,
           email: user.email,
-          avatar_url: user.avatar_url
-        }
+          avatar_url: user.avatar_url,
+        },
       })
 
       return {
         ...updatedUser,
         avatar_url: updatedUser.avatar_url!,
-        emailVerified: null
+        emailVerified: null,
       }
     },
 
