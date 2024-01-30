@@ -35,7 +35,7 @@ export default function Favorites(){
   }, [])
 
   return(
-    <div className="w-screen min-h-screen bg-black flex flex-col items-center">
+    <div className="min-w-full min-h-screen bg-black flex flex-col items-center">
       <div>
         {moviesSaved.length !== 0 ? moviesSaved.map((movie) => {
           return(
@@ -56,7 +56,6 @@ export default function Favorites(){
         </div>
       }
       </div>
-      
     </div>
   )
 }

@@ -55,7 +55,7 @@ export default function Genre({ movies } : MovieProps){
   }, [isLoading])
   
   return(
-    <div className="w-screen min-h-full bg-black flex flex-col items-center">
+    <div className="min-w-screen min-h-full bg-black flex flex-col items-center">
       <div className="w-full h-full items-center justify-center">
         <div className="text-white font-bold flex flex-col items-center mb-8">
           <h1 className="text-white text-3xl my-4">{matchGenreMovieByGenreId(Number(genreId))}</h1>
@@ -126,8 +126,6 @@ export const getStaticProps: GetStaticProps<any, { genreId: string }> = async ({
   try{
     const response = await apiMovies.get('/discover/movie', {
       params:{
-        api_key: process.env.API_KEY_TMDB,
-        language: 'pt-br',
         with_genres: genreId
       }
     })

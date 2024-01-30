@@ -15,7 +15,6 @@ import { useEffect, useState } from "react";
 import { GenreButtons } from "@/components/GenreButtons";
 
 import { Skeleton } from '@mui/material'
-import colors from "tailwindcss/colors";
 
 interface MovieProps{
   movies:{
@@ -32,9 +31,7 @@ const formMovieSchema = z.object({
 type FormMovieData = z.infer<typeof formMovieSchema>
 
 export default function Home({ movies } : MovieProps){
-  const [buttonSelected, setButtonSelected] = useState(0)
-  const [buttonIsActive, setButtonIsActive] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   const { 
       register, 
@@ -50,18 +47,12 @@ export default function Home({ movies } : MovieProps){
     router.push(`search/${movie.movie}`)
   }
 
-  function handleSelectedGenre(genreId: number){
-    setButtonSelected(genreId)
-    setButtonIsActive(!buttonIsActive)
-    router.push(`/genre/${genreId}`)
-  }
-
   useEffect(() => {
     movies ? setIsLoading(false): setIsLoading(true)
   }, [isLoading])
   
   return(
-    <div className="w-screen min-h-full bg-black flex flex-col items-center">
+    <div className="min-w-screen min-h-screen bg-black flex flex-col items-center">
       <div className="w-full h-full items-center justify-center">
         <div className="text-white font-bold flex flex-col items-center mb-8">
           <h1 className="text-white text-3xl my-4">Filmes no cinema</h1>
@@ -79,7 +70,7 @@ export default function Home({ movies } : MovieProps){
           </form>
           {errors.movie? <span className="text-danger mt-2">{errors.movie.message}</span> : null}
         </div>
-          <div className="w-full h-full grid grid-cols-5 gap-4 xlg:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xsm:grid-cols-1">
+          <div className="w-full h-full grid grid-cols-5 xlg:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xsm:grid-cols-1">
             {movies.length > 0 && movies.map((movie) => {
               return(
                 <div className="flex flex-col items-center" key={movie.id}>
@@ -117,12 +108,7 @@ export default function Home({ movies } : MovieProps){
 export const getStaticProps: GetStaticProps = async () => {
 
   try{
-    const response = await apiMovies.get('/movie/now_playing', {
-      params:{
-        api_key: process.env.API_KEY_TMDB,
-        language: 'pt-br',
-      }
-    })
+    const response = await apiMovies.get('/movie/now_playing')
   
     const movies = response.data.results.slice(0, 12)
   

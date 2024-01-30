@@ -1,17 +1,19 @@
 import colors from "tailwindcss/colors";
 import { FcGoogle } from "react-icons/fc";
 import { useRouter } from "next/router";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { FaReact } from "react-icons/fa";
 
 export default function Home() {
   const router = useRouter()
+  const session = useSession()
 
   async function handleSignIn(provider: string, callbackUrl="/"){
     if(!provider){
       await router.push('/')
       return
     }
+    
     signIn(provider, {
       callbackUrl
     })
@@ -20,12 +22,11 @@ export default function Home() {
   }
   
   return (
-    <div className="w-screen h-screen bg-black flex">
+    <div className="min-w-screen h-screen flex">
       <aside className="w-[50%] h-full bg-gray_500">
   
       </aside>
-
-      <div className="flex-1 h-full text-2xl text-white flex flex-col items-center">
+      <div className="w-[50%] h-full text-2 text-white flex flex-col items-center">
         <div className="w-62 h-44 flex items-center justify-around mt-12">
           <h1 className="text-2xl mx-4">React Movies</h1>
           <FaReact size={60} color={colors.blue['500']}/>

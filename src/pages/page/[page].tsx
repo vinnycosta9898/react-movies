@@ -20,7 +20,7 @@ export default function Page({ movies } : MovieProps){
       <div className="w-full h-full flex flex-col items-center justify-center">
           <h1 className="text-white text-3xl font-bold my-4">Filmes no cinema</h1>
           <GenreButtons/>
-          <div className="w-full h-full grid grid-cols-3 gap-4">
+          <div className="w-full h-full grid grid-cols-5 xlg:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xsm:grid-cols-1">
             {movies.length > 0 && movies.map((movie) => {
               return(
                 <div className="flex flex-col items-center" key={movie.id}>
@@ -49,8 +49,6 @@ export const getServerSideProps: GetServerSideProps<any, {page: string}> = async
   try{
     const response = await apiMovies.get('/movie/now_playing', {
       params:{
-        api_key: process.env.API_KEY_TMDB,
-        language: 'pt-br',
         page: page
       }
     })

@@ -11,9 +11,9 @@ export default function Profile(){
     await router.push('/')
     await signOut()
   }
-  
+
   return(
-    <div className="w-screen min-h-screen bg-black">
+    <div className="min-w-screen min-h-screen bg-black">
       <div>
         <div className="flex flex-col items-center">
           <Image
@@ -27,7 +27,12 @@ export default function Profile(){
           <h1 className="text-white text-2xl font-bold mt-4">{session.data?.user.name}</h1>
           <div>
             <div className="mt-4">
-              <button className="w-40 h-12 bg-gray_300 text-danger rounded-lg" onClick={() => handleSignOut()}>Fazer logout</button>
+              <button 
+                className="w-40 h-12 bg-gray_300 text-danger rounded-lg" 
+                onClick={() => handleSignOut()}
+              >
+                Fazer logout
+              </button> 
             </div>
           </div>
         </div>

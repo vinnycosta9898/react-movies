@@ -42,7 +42,7 @@ interface MovieStorageProps{
 }
 
 export default function Movie({ ...props } : MovieProps){
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   
   function handleSaveMovie({ id , poster_path, title } : MovieStorageProps){
     
@@ -197,12 +197,7 @@ export const getStaticProps: GetStaticProps<any, {id: string}> = async ({ params
   const id = params?.id
 
   try{  
-    const response = await apiMovies.get(`/movie/${id}`, {
-      params:{
-        api_key: process.env.API_KEY_TMDB,
-        language: 'pt-br',
-      }
-    })
+    const response = await apiMovies.get(`/movie/${id}`)
   
     const movie = response.data
   
@@ -219,7 +214,5 @@ export const getStaticProps: GetStaticProps<any, {id: string}> = async ({ params
       }
     }
   }
-
- 
 }
 

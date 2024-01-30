@@ -23,7 +23,7 @@ export function buildNextAuthOptions(req: NextApiRequest, res:NextApiResponse){
 
     callbacks:{
       async redirect(url: any) {
-       return '/home'
+         return '/home'
       },
       async session({ session, user } : any){
         return{

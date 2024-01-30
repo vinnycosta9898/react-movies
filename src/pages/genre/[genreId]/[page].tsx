@@ -14,6 +14,8 @@ import { Paginate } from "@/components/Paginate";
 
 import { matchGenreMovieByGenreId } from "@/utils/matchGenreMovieByUrl";
 import { GenreButtons } from "@/components/GenreButtons";
+import { Skeleton } from "@mui/material";
+import { useEffect, useState } from "react";
 
 
 interface GenreProps{
@@ -31,6 +33,7 @@ const formMovieSchema = z.object({
 type FormMovieData = z.infer<typeof formMovieSchema>
 
 export default function GenrePage({ movies } : GenreProps){  
+  const [isLoading, setIsLoading] = useState(false)
   const { 
     register, 
     handleSubmit, 
@@ -46,49 +49,65 @@ export default function GenrePage({ movies } : GenreProps){
   async function handleSearchMovie(movie: FormMovieData){
     router.push(`search/${movie.movie}`)
   }
+
+  useEffect(() => {
+    movies ? setIsLoading(false) : setIsLoading(true)
+  }, [isLoading])
   
   return(
-    <div className="min-w-screen min-h-screen bg-black flex flex-col justify-center">
-      <div className="w-full h-full items-center justify-center">
-        <div className="text-white font-bold flex flex-col items-center mb-8">
-          <h1 className="text-white text-3xl my-4">{matchGenreMovieByGenreId(Number(genreId))}</h1>
-          <GenreButtons/>
-          <form className="flex gap-2" onSubmit={handleSubmit(handleSearchMovie)}>
-            <input 
-              type="text" 
-              placeholder="Busque um filme" 
-              className="w-96 h-10 rounded-lg bg-gray_300 outline-none px-1 text-gray_100 placeholder:text-gray_100" 
-              {...register('movie')}
-            />
-            <button className="w-8 h-10 bg-gray_300 rounded-lg flex items-center justify-center">
-              <FiSearch color="#696969"/>
-            </button>
-          </form>
-          {errors.movie? <span className="text-danger mt-2">{errors.movie.message}</span> : null}
-        </div>
-          <div className="w-full h-full grid grid-cols-3 gap-4">
-            {movies.length > 0 && movies.map((movie) => {
-              return(
-                <div className="flex flex-col items-center" key={movie.id}>
-                  <Link href={`/movie/${movie.id}`}>
-                    <MovieCard
-                      id={movie.id}
-                      poster_path={movie.poster_path}
-                      title={movie.title}
-                    />
-                  </Link>
-                </div>
-              )
-          })}
-          </div>
+    <div className="min-w-screen min-h-full bg-black flex flex-col items-center">
+    <div className="w-full h-full items-center justify-center">
+      <div className="text-white font-bold flex flex-col items-center mb-8">
+        <h1 className="text-white text-3xl my-4">{matchGenreMovieByGenreId(Number(genreId))}</h1>
+        <GenreButtons/>
+        <form className="flex gap-2" onSubmit={handleSubmit(handleSearchMovie)}>
+          <input 
+            type="text" 
+            placeholder="Busque um filme" 
+            className="w-96 h-10 rounded-lg bg-gray_300 outline-none px-1 text-gray_100 placeholder:text-gray_100" 
+            {...register('movie')}
+          />
+          <button className="w-8 h-10 bg-gray_300 rounded-lg flex items-center justify-center">
+            <FiSearch color="#696969"/>
+          </button>
+        </form>
+        {errors.movie? <span className="text-danger mt-2">{errors.movie.message}</span> : null}
       </div>
-      <footer className="w-full flex justify-center">
-        <Paginate
-          withGenre={true}
-          genreId={String(genreId)}
-        />
-      </footer>      
+        <div className="w-full h-full grid grid-cols-5 gap-4 xlg:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xsm:grid-cols-1">
+          {movies.length > 0 && movies.map((movie) => {
+            return(
+              <div className="flex flex-col items-center" key={movie.id}>
+                <Link href={`/movie/${movie.id}`}>
+                  {
+                  isLoading
+                    ?
+                  <Skeleton
+                    width={320}
+                    height={480}
+                    variant="rounded"
+                    animation="wave"
+                    sx={{ bgcolor: 'grey.900' }}
+                  />
+                    : 
+                  <MovieCard
+                    id={movie.id}
+                    poster_path={movie.poster_path}
+                    title={movie.title}
+                  />
+                  }
+                </Link>
+              </div>
+            )
+        })}
+        </div>
     </div>
+    <footer className="w-full flex justify-center">
+      <Paginate
+        withGenre={true}
+        genreId={String(genreId)}
+      />
+    </footer>      
+  </div>
   )
 }
 
@@ -117,8 +136,6 @@ export const getStaticProps: GetStaticProps<any, { genreId: string, page: string
   try{
     const response = await apiMovies.get('/discover/movie', {
       params:{
-        api_key: process.env.API_KEY_TMDB,
-        language: 'pt-br',
         with_genres: genreId,
         page: page
       }

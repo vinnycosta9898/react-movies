@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { apiMovies } from "@/lib/axios";
+import { useRouter } from "next/router";
+
 import { MovieCard } from "@/components/MovieCard";
 import { FiSearch } from "react-icons/fi";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { apiMovies } from "@/lib/axios";
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/router";
 
 interface MovieProps{
   movies:{
@@ -31,14 +33,14 @@ export default function Search({ movies } : MovieProps){
           resolver: zodResolver(formMovieSchema)
       })
 
-    const router = useRouter()
+  const router = useRouter()
 
-    async function handleSearchMovie(movie: FormMovieData){
-      router.push(`/search/${movie.movie}`)
-    }
+  async function handleSearchMovie(movie: FormMovieData){
+    router.push(`/search/${movie.movie}`)
+  }
 
   return(
-    <div className="min-w-screen min-h-screen bg-black flex flex-col justify-center">
+    <div className="min-w-screen  bg-black flex flex-col ">
       <div className="w-full h-full items-center justify-center">
         <div className="text-white font-bold flex flex-col items-center mb-8">
           <h1 className="text-white text-3xl my-4">Filmes no cinema</h1>
@@ -56,19 +58,26 @@ export default function Search({ movies } : MovieProps){
           {errors.movie? <span className="text-danger mt-2">{errors.movie.message}</span> : null}
         </div>
           <div className="w-full h-full grid grid-cols-3 gap-4">
-            {movies.length > 0 && movies.map((movie) => {
-              return(
-                <div className="flex flex-col items-center" key={movie.id}>
-                  <Link href={`/movie/${movie.id}`}>
-                    <MovieCard
-                      id={movie.id}
-                      poster_path={movie.poster_path}
-                      title={movie.title}
-                    />
-                  </Link>
-                </div>
-              )
-          })}
+            {movies.length > 0 
+              ? 
+              movies.map((movie) => {
+                return(
+                  <div className="flex flex-col items-center" key={movie.id}>
+                    <Link href={`/movie/${movie.id}`}>
+                      <MovieCard
+                        id={movie.id}
+                        poster_path={movie.poster_path}
+                        title={movie.title}
+                      />
+                    </Link>
+                  </div>
+                )}) 
+            :
+            <div className="w-screen flex flex-col items-center">
+              <h1 className="text-white text-3xl font-bold my-4">Filme não encontrado</h1>
+              <Link href='/home' className="text-blue">Voltar para o Inicio</Link>
+            </div>
+            }
           </div>
       </div>
     </div>
@@ -90,8 +99,6 @@ export const getStaticProps: GetStaticProps<any, { movie: string}> = async ({ pa
   try{
     const response = await apiMovies.get('/search/movie', {
       params:{
-        api_key: process.env.API_KEY_TMDB,
-        language: 'pt-br',
         query: movie
       }
     })
