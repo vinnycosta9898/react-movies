@@ -10,23 +10,23 @@ interface CastCardProps {
 
 export function CastCard({ name, character, profile_path }: CastCardProps) {
   return (
-    <div className="w-[15rem] h-[25rem] rounded-lg bg-red-200 m-2 flex flex-col items-center hover:scale-105 transition-transform cursor-pointer">
+    <div className="max-w-[15rem] max-h-[30rem] rounded-lg m-2 flex flex-col items-center hover:scale-x-105 transition-transform cursor-pointer">
       {profile_path === 'user-without-photo' ? (
-        <div className="w-[15rem] h-[22.5rem] bg-gray rounded-lg flex items-center justify-center">
-          <FaUser size={180} color={colors.white} />
+        <div className="min-w-[15rem] h-[22rem] rounded-lg m-2 flex flex-col items-center justify-center cursor-pointer bg-gray">
+          <FaUser size={180} color={colors.white} className="max-w-[15rem] max-h-[22rem]" />
         </div>
       ) : (
         <Image
           src={`https://image.tmdb.org/t/p/w500/${profile_path}`}
           alt={`Imagem do ator ${name}`}
-          width={320}
-          height={480}
+          width={240}
+          height={400}
           priority
           className="rounded-lg"
         />
       )}
 
-      <h1 className="text-white font-bold text-center">
+      <h1 className="text-white font-bold text-center text-ellipsis overflow-hidden whitespace-nowrap">
         {name} ({character})
       </h1>
     </div>

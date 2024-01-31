@@ -35,7 +35,7 @@ export default function Favorites() {
   }, [])
 
   return (
-    <div className="min-w-full min-h-screen bg-black flex flex-col items-center">
+    <div className="min-w-screen min-h-screen bg-black flex flex-col items-center">
       <div>
         {moviesSaved.length !== 0 ? (
           moviesSaved.map((movie) => {
@@ -52,7 +52,7 @@ export default function Favorites() {
           })
         ) : (
           <div className="flex flex-col items-center justify-center mt-16">
-            <h1 className="text-4xl text-white text-center font-bold my-4">
+            <h1 className="text-4xl text-white text-center font-bold my-4 overflow-y-hidden">
               Lista Vazia...
             </h1>
             <Link href="/home" className="text-blue text-xl">

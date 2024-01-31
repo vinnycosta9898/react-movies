@@ -12,6 +12,7 @@ import { formatCurrency } from '@/utils/formatCurrency'
 import { toast } from 'sonner'
 import { Skeleton } from '@mui/material'
 
+
 interface MovieProps {
   movie: {
     id: string
@@ -68,32 +69,34 @@ export default function Movie({ ...props }: MovieProps) {
   }
 
   useEffect(() => {
-    props ? setIsLoading(false) : setIsLoading(true)
-  }, [isLoading])
-
+      props && setIsLoading(false) // Carrega o componente skeleton
+  }, [])
+ 
   return (
-    <div className="min-w-screen w-full min-h-screen bg-black flex flex-col items-center">
-      {isLoading ? (
-        <Skeleton
-          width={1200}
-          height={674}
-          variant="rounded"
-          animation="wave"
-          sx={{ bgcolor: 'grey.900' }}
-        />
-      ) : (
-        <Image
-          src={`https://image.tmdb.org/t/p/original/${props.movie.backdrop_path}`}
-          alt={`Banner do filme ${props.movie.title}`}
-          width={1200}
-          height={674}
-          quality={100}
-          className="rounded-lg"
-        />
-      )}
+    <div className="min-w-screen min-h-screen bg-black flex flex-col items-center justify-center">
+      <div className="max-w-[75rem] h-full flex justify-center">
+        {isLoading ? (
+          <Skeleton
+            width={1200}
+            height={674}
+            variant="rounded"
+            animation="wave"
+            sx={{ bgcolor: 'grey.900' }}
+          />
+        ) : (
+          <Image
+            src={`https://image.tmdb.org/t/p/original/${props.movie.backdrop_path}`}
+            alt={`Banner do filme ${props.movie.title}`}
+            width={1200}
+            height={674}
+            quality={100}
+            className="rounded-lg"
+          />
+        )}
+      </div>
 
-      <div className="w-full h-full flex justify-center gap-4 mt-8">
-        <aside>
+      <div className="max-w-full h-full flex justify-center gap-4 mt-8 lg:flex xsm:flex-wrap">
+        <aside className="">
           {isLoading ? (
             <Skeleton
               width={360}
@@ -136,14 +139,14 @@ export default function Movie({ ...props }: MovieProps) {
             </Link>
           </div>
         </aside>
-        <div className="flex flex-col items-center">
-          <div className="w-[50rem] max-h-[40rem] flex flex-col justify-center items-center px-8 inset-0 bg-[#ffffff10] backdrop-blur-md rounded-lg">
+        <div className="max-w-full flex flex-col items-center">
+          <div className="max-w-[50rem] min-h-[28rem] flex flex-col items-center px-8 inset-0 bg-[#ffffff10] backdrop-blur-md rounded-lg md:w-[55rem] sm:w-[30rem] xsm:w-[25rem]">
             <h1 className=" text-3xl text-white text-center">
               {props.movie.title}
             </h1>
             <h3 className="text-bronze mt-2 text-center">
               {props.movie.tagline ? props.movie.tagline : 'Frase indisponível'}
-            </h3>
+            </h3> 
             <h4 className="text-bronze mt-2">
               {' ' + props.movie.genres.map((genre) => genre.name)}
             </h4>
@@ -160,8 +163,8 @@ export default function Movie({ ...props }: MovieProps) {
             </Link>
           </div>
 
-          <div className="w-[50rem] h-[20rem] flex justify-center mt-4">
-            <div className="flex gap-2">
+          <div className="w-[50rem] h-[30rem] flex justify-center mt-4 ">
+            <div className="flex gap-2  md:flex xsm:grid grid-cols-2">
               <MovieInfoCard
                 logo="calendar"
                 title="Data de lançamento"

@@ -65,7 +65,7 @@ export default function Search({ movies }: MovieProps) {
             <span className="text-danger mt-2">{errors.movie.message}</span>
           ) : null}
         </div>
-        <div className="w-full h-full grid grid-cols-3 gap-4">
+        <div className="w-full h-full grid grid-cols-5 xlg:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xsm:grid-cols-1">
           {movies.length > 0 ? (
             movies.map((movie) => {
               return (
