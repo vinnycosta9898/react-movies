@@ -69,7 +69,7 @@ export default function Movie({ ...props }: MovieProps) {
   }
 
   useEffect(() => {
-      props && setIsLoading(false) // Carrega o componente skeleton
+      props && setIsLoading(false) 
   }, [])
  
   return (

@@ -3,7 +3,7 @@ import { SessionProvider } from 'next-auth/react'
 
 import '@/styles/globals.css'
 import 'tailwindcss/tailwind.css'
-import { Toaster } from 'sonner'
+import { Toaster, toast } from 'sonner'
 import { Header } from '@/components/Header'
 
 export default function App({

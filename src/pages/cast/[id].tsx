@@ -1,5 +1,6 @@
-import { apiMovies } from '@/lib/axios'
 import { GetStaticPaths, GetStaticProps } from 'next'
+
+import { apiMovies } from '@/lib/axios'
 import { CastCard } from '@/components/CastCard'
 
 interface CastProps {
