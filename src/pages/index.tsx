@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <div className="min-w-screen h-screen flex">
       <aside className="w-[50%] h-full bg-gray_500"></aside>
-      <div className="w-[50%] h-full text-2 text-white flex flex-col items-center">
+      <div className="w-[50%] h-full text-2 text-white flex flex-col items-center ">
         <div className="w-62 h-44 flex items-center justify-around mt-12">
           <h1 className="text-2xl mx-4">React Movies</h1>
           <FaReact size={60} color={colors.blue['500']} />

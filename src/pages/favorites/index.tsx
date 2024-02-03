@@ -55,7 +55,7 @@ export default function Favorites() {
             <h1 className="text-4xl text-white text-center font-bold my-4 overflow-y-hidden">
               Lista Vazia...
             </h1>
-            <Link href="/home" className="text-blue text-xl">
+            <Link href="/home" className="text-blue text-xl text-center">
               Clique aqui para para adicionar filmes a lista
             </Link>
           </div>

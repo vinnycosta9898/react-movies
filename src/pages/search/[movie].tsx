@@ -54,7 +54,7 @@ export default function Search({ movies }: MovieProps) {
             <input
               type="text"
               placeholder="Busque um filme"
-              className="w-96 h-10 rounded-lg bg-gray_300 outline-none px-1 text-gray_100 placeholder:text-gray_100"
+              className="min-w-64 h-10 rounded-lg bg-gray_300 outline-none px-1 text-gray_100 placeholder:text-gray_100"
               {...register('movie')}
             />
             <button className="w-8 h-10 bg-gray_300 rounded-lg flex items-center justify-center">

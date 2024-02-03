@@ -8,12 +8,20 @@ export function buildNextAuthOptions(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
+
   return {
     adapter: PrismaAdapter(req, res),
     providers: [
       GoogleProvider({
         clientId: process.env.GOOGLE_CLIENT_ID ?? '',
         clientSecret: process.env.GOOGLE_SECRET_ID ?? '',
+        authorization:{
+          params:{
+            prompt: 'consent',
+            access_type: 'offline',
+            response_type: 'code',
+          }
+        },
         profile(profile: GoogleProfile) {
           return {
             id: profile.sub,
