@@ -1,12 +1,14 @@
 interface CircleProps{
+  handleActiveCircle: () => void
   isActive: boolean
 }
 
-export function Circle({ isActive } : CircleProps){
-  console.log(isActive)
+export function Circle({ handleActiveCircle, isActive } : CircleProps){
   return(
-    <div className={`w-[24px] h-[24px] ${isActive ? 'bg-blue' : 'bg-white'} rounded-[999px]`}>
-      
-    </div>
+    <button 
+      className={`w-[24px] h-[24px] ${isActive ? 'bg-blue' : 'bg-white'} rounded-[999px]`}
+      onClick={() => handleActiveCircle()}
+    >
+    </button>
   )
 }
