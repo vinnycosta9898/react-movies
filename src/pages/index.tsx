@@ -3,6 +3,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { useRouter } from 'next/router'
 import { signIn, useSession } from 'next-auth/react'
 import { FaReact } from 'react-icons/fa'
+import { SlideText } from '@/components/SlideText'
 
 export default function Home() {
   const router = useRouter()
@@ -23,7 +24,12 @@ export default function Home() {
 
   return (
     <div className="min-w-screen h-screen flex">
-      <aside className="w-[50%] h-full bg-gray_500"></aside>
+      <aside className="w-[50%] h-full bg-gray_500 flex items-center justify-center">
+        <SlideText
+          primary_text='Acompanhe os seus filmes favoritos de onde quiser'
+          secondary_text='Leia a sinopse e veja o elenco do filme. '
+        />
+      </aside>
       <div className="w-[50%] h-full text-2 text-white flex flex-col items-center ">
         <div className="w-62 h-44 flex items-center justify-around mt-12">
           <h1 className="text-2xl mx-4">React Movies</h1>
