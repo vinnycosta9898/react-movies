@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 import { FavoriteCard } from '@/components/FavoriteCard'
-import { toast } from 'sonner'
+import { toast } from 'react-toastify'
 
 interface FavoriteCardProps {
   id: string

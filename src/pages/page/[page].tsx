@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { GetServerSideProps } from 'next'
+
 import { apiMovies } from '@/lib/axios'
+
 import { MovieCard } from '@/components/MovieCard'
 import { Paginate } from '@/components/Paginate'
 import { GenreButtons } from '@/components/GenreButtons'

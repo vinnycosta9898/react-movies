@@ -1,11 +1,13 @@
 import Image from 'next/image'
-import colors from 'tailwindcss/colors'
-import { FcGoogle } from 'react-icons/fc'
 import { useRouter } from 'next/router'
 import { signIn  } from 'next-auth/react'
+
+import colors from 'tailwindcss/colors'
+import { FcGoogle } from 'react-icons/fc'
 import { FaReact, FaUser } from 'react-icons/fa'
-import { SlideText } from '@/components/SlideText'
 import movieImg from '../../public/movies.jpeg'
+
+import { SlideText } from '@/components/SlideText'
 
 export default function Home() {
   const router = useRouter()

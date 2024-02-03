@@ -9,7 +9,7 @@ import { MovieInfoCard } from '@/components/MovieInfoCard'
 import { formatDate } from '@/utils/formatDate'
 import { formatCurrency } from '@/utils/formatCurrency'
 
-import { toast } from 'sonner'
+import { toast } from 'react-toastify'
 import { Skeleton } from '@mui/material'
 
 
@@ -69,9 +69,10 @@ export default function Movie({ ...props }: MovieProps) {
   }
 
   useEffect(() => {
-      props && setIsLoading(false) 
-  }, [])
- 
+    props ? setIsLoading(false) : setIsLoading(true)
+  }, [props]);
+
+  
   return (
     <div className="min-w-screen min-h-screen bg-black flex flex-col items-center justify-center">
       <div className="max-w-[75rem] h-full flex justify-center">

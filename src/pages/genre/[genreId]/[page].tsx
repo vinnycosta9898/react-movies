@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
@@ -15,7 +16,6 @@ import { Paginate } from '@/components/Paginate'
 import { matchGenreMovieByGenreId } from '@/utils/matchGenreMovieByUrl'
 import { GenreButtons } from '@/components/GenreButtons'
 import { Skeleton } from '@mui/material'
-import { useEffect, useState } from 'react'
 
 interface GenreProps {
   movies: {
