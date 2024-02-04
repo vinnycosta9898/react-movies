@@ -2,6 +2,7 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 
 import { apiMovies } from '@/lib/axios'
 import { CastCard } from '@/components/CastCard'
+import Head from 'next/head'
 
 interface CastProps {
   cast: {
@@ -15,6 +16,9 @@ interface CastProps {
 export default function Cast({ cast }: CastProps) {
   return (
     <div className="flex flex-col items-center py-16">
+      <Head>
+        <title>React Movies | Elenco</title>
+      </Head>
       <h1 className="text-4xl text-white font-bold text-center overflow-y-hidden">Elenco do filme</h1>
       <div className="min-w-screen min-h-screen bg-black">
         <div className="w-full h-full grid grid-cols-5 gap-4 xlg:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xsm:grid-cols-1">

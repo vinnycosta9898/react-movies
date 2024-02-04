@@ -45,7 +45,8 @@ export default function Search({ movies }: MovieProps) {
   return (
     <div className="min-w-screen  bg-black flex flex-col ">
       <div className="w-full h-full items-center justify-center">
-        <div className="text-white font-bold flex flex-col items-center mb-8">
+        {!movies && 
+          <div className="text-white font-bold flex flex-col items-center mb-8">
           <h1 className="text-white text-3xl my-4">Filmes no cinema</h1>
           <form
             className="flex gap-2"
@@ -64,7 +65,9 @@ export default function Search({ movies }: MovieProps) {
           {errors.movie ? (
             <span className="text-danger mt-2">{errors.movie.message}</span>
           ) : null}
-        </div>
+          </div>
+        }
+        
         <div className="w-full h-full grid grid-cols-5 xlg:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xsm:grid-cols-1">
           {movies.length > 0 ? (
             movies.map((movie) => {
@@ -82,12 +85,12 @@ export default function Search({ movies }: MovieProps) {
             })
           ) : (
             <div className="w-screen flex flex-col items-center">
-              <h1 className="text-white text-3xl font-bold my-4">
-                Filme não encontrado
-              </h1>
-              <Link href="/home" className="text-blue">
-                Voltar para o Inicio
-              </Link>
+            <h1 className="text-white text-3xl font-bold my-4">
+              Filme não encontrado
+            </h1>
+            <Link href="/home" className="text-blue">
+              Voltar para o Inicio
+            </Link>
             </div>
           )}
         </div>

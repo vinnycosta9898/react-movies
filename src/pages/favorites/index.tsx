@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import { FavoriteCard } from '@/components/FavoriteCard'
 import { toast } from 'react-toastify'
+import Head from 'next/head'
 
 interface FavoriteCardProps {
   id: string
@@ -36,6 +37,9 @@ export default function Favorites() {
 
   return (
     <div className="min-w-screen min-h-screen bg-black flex flex-col items-center">
+      <Head>
+        <title>React Movies | Favoritos</title>
+      </Head>
       <div>
         {moviesSaved.length !== 0 ? (
           moviesSaved.map((movie) => {

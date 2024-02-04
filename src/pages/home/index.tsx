@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Head from 'next/head'
 import { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 
@@ -55,6 +56,9 @@ export default function Home({ movies }: MovieProps) {
 
   return (
     <div className="min-w-screen min-h-screen bg-black flex flex-col items-center">
+      <Head>
+        <title>React Movies | Inicio</title>
+      </Head>
       <div className="w-full h-full items-center justify-center">
         <div className="text-white font-bold flex flex-col items-center mb-8">
           <h1 className="text-white text-3xl my-4">Filmes no cinema</h1>

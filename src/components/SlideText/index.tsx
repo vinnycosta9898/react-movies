@@ -32,8 +32,8 @@ export function SlideText({ primary_text, secondary_text } : SlideTextProps){
   }, [changeText])
 
   return(
-    <div className="w-[36rem] h-72 absolute backdrop-blur-sm flex flex-col items-center justify-center rounded-lg">
-      <h1 className="text-5xl text-white font-bold text-center overflow-y-hidden">
+    <div className="w-[36rem] h-72 absolute backdrop-blur-sm flex flex-col items-center justify-center rounded-lg  md:w-[32rem] xsm: w-[20rem]">
+      <h1 className="text-5xl text-white font-bold text-center overflow-y-hidden xsm:text-xl">
         { !changeText ? primary_text : secondary_text  }
       </h1>
       <div className='w-[36rem] flex justify-center gap-4 mt-8'>
@@ -48,4 +48,4 @@ export function SlideText({ primary_text, secondary_text } : SlideTextProps){
       </div>
     </div>
   )
-}
+}``

@@ -8,6 +8,7 @@ import { FaReact, FaUser } from 'react-icons/fa'
 import movieImg from '../../public/movies.jpeg'
 
 import { SlideText } from '@/components/SlideText'
+import Head from 'next/head'
 
 export default function Home() {
   const router = useRouter()
@@ -26,7 +27,10 @@ export default function Home() {
   }
 
   return (
-    <div className="min-w-screen h-screen flex">
+    <div className="min-w-screen h-screen flex flex-col items-center">
+      <Head>
+        <title>React Movies | Login</title>
+      </Head>
       <aside className="w-[50%] h-full bg-gray_500 flex items-center justify-center">
         <Image
           src={movieImg}
@@ -40,7 +44,7 @@ export default function Home() {
       </aside>
       <div className="w-[50%] h-full text-2 text-white flex flex-col items-center ">
         <div className="w-62 h-44 flex items-center justify-around mt-12">
-          <h1 className="text-2xl mx-4">React Movies</h1>
+          <h1 className="text-4xl mx-4 font-bold overflow-hidden">React Movies</h1>
           <FaReact size={60} color={colors.blue['500']} />
         </div>
 

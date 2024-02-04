@@ -16,6 +16,7 @@ import { Paginate } from '@/components/Paginate'
 import { matchGenreMovieByGenreId } from '@/utils/matchGenreMovieByUrl'
 import { GenreButtons } from '@/components/GenreButtons'
 import { Skeleton } from '@mui/material'
+import Head from 'next/head'
 
 interface GenreProps {
   movies: {
@@ -56,6 +57,9 @@ export default function GenrePage({ movies }: GenreProps) {
 
   return (
     <div className="min-w-screen min-h-full bg-black flex flex-col items-center">
+      <Head>
+        <title>React Movies | {matchGenreMovieByGenreId(Number(genreId))}</title>
+      </Head>
       <div className="w-full h-full items-center justify-center">
         <div className="text-white font-bold flex flex-col items-center mb-8">
           <h1 className="text-white text-3xl my-4">

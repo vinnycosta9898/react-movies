@@ -13,9 +13,10 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps) {
+  
   const router = useRouter()
   const isLoginPage = router.pathname === '/'
-  console.log(isLoginPage)
+
   return (
     <SessionProvider session={session}>
       {!isLoginPage && <Header/>}

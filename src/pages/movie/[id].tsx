@@ -11,7 +11,7 @@ import { formatCurrency } from '@/utils/formatCurrency'
 
 import { toast } from 'react-toastify'
 import { Skeleton } from '@mui/material'
-
+import Head from 'next/head'
 
 interface MovieProps {
   movie: {
@@ -69,12 +69,16 @@ export default function Movie({ ...props }: MovieProps) {
   }
 
   useEffect(() => {
+    console.log("Filme", props)
     props ? setIsLoading(false) : setIsLoading(true)
   }, [props]);
 
   
   return (
     <div className="min-w-screen min-h-screen bg-black flex flex-col items-center justify-center">
+      <Head>
+        <title>React Movies | {props.movie.title}</title>
+      </Head>
       <div className="max-w-[75rem] h-full flex justify-center">
         {isLoading ? (
           <Skeleton

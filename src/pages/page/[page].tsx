@@ -6,6 +6,7 @@ import { apiMovies } from '@/lib/axios'
 import { MovieCard } from '@/components/MovieCard'
 import { Paginate } from '@/components/Paginate'
 import { GenreButtons } from '@/components/GenreButtons'
+import Head from 'next/head'
 
 interface MovieProps {
   movies: {
@@ -18,6 +19,9 @@ interface MovieProps {
 export default function Page({ movies }: MovieProps) {
   return (
     <div className="min-w-screen min-h-screen bg-black flex flex-col justify-center">
+      <Head>
+        <title>React Movies | Inicio</title>
+      </Head>
       <div className="w-full h-full flex flex-col items-center justify-center">
         <h1 className="text-white text-3xl font-bold my-4">Filmes no cinema</h1>
         <GenreButtons />
