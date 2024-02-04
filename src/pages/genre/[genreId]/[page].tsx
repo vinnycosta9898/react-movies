@@ -84,31 +84,33 @@ export default function GenrePage({ movies }: GenreProps) {
             <span className="text-danger mt-2">{errors.movie.message}</span>
           ) : null}
         </div>
-        <div className="w-full h-full grid grid-cols-5 gap-4 xlg:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xsm:grid-cols-1">
-          {movies.length > 0 &&
-            movies.map((movie) => {
-              return (
-                <div className="flex flex-col items-center" key={movie.id}>
-                  <Link href={`/movie/${movie.id}`}>
-                    {isLoading ? (
-                      <Skeleton
-                        width={320}
-                        height={480}
-                        variant="rounded"
-                        animation="wave"
-                        sx={{ bgcolor: 'grey.900' }}
-                      />
-                    ) : (
-                      <MovieCard
-                        id={movie.id}
-                        poster_path={movie.poster_path}
-                        title={movie.title}
-                      />
-                    )}
-                  </Link>
-                </div>
-              )
-            })}
+        <div className="flex flex-col items-center">
+          <div className="grid grid-cols-5 gap-16 xlg:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xsm:grid-cols-1">
+            {movies.length > 0 &&
+              movies.map((movie) => {
+                return (
+                  <div className="flex flex-col items-center" key={movie.id}>
+                    <Link href={`/movie/${movie.id}`}>
+                      {isLoading ? (
+                        <Skeleton
+                          width={320}
+                          height={480}
+                          variant="rounded"
+                          animation="wave"
+                          sx={{ bgcolor: 'grey.900' }}
+                        />
+                      ) : (
+                        <MovieCard
+                          id={movie.id}
+                          poster_path={movie.poster_path}
+                          title={movie.title}
+                        />
+                      )}
+                    </Link>
+                  </div>
+                )
+              })}
+          </div>
         </div>
       </div>
       <footer className="w-full flex justify-center">

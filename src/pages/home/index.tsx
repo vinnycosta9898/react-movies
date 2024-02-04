@@ -81,7 +81,8 @@ export default function Home({ movies }: MovieProps) {
             <span className="text-danger mt-2">{errors.movie.message}</span>
           ) : null}
         </div>
-        <div className="w-full h-full grid grid-cols-5 xlg:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xsm:grid-cols-1">
+        <div className="flex flex-col items-center">
+        <div className="grid grid-cols-5 gap-16 xlg:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xsm:grid-cols-1">
           {movies.length > 0 &&
             movies.map((movie) => {
               return (
@@ -106,6 +107,7 @@ export default function Home({ movies }: MovieProps) {
                 </div>
               )
             })}
+        </div>
         </div>
       </div>
       <footer className="w-full flex justify-center">

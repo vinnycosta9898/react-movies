@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import Link from 'next/link'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
@@ -9,6 +10,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { apiMovies } from '@/lib/axios'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { useState } from 'react'
+import { Skeleton, dividerClasses } from '@mui/material'
 
 interface MovieProps {
   movies: {
@@ -28,6 +31,8 @@ const formMovieSchema = z.object({
 type FormMovieData = z.infer<typeof formMovieSchema>
 
 export default function Search({ movies }: MovieProps) {
+  const [isLoading, setIsLoading] = useState(true)
+  
   const {
     register,
     handleSubmit,
@@ -37,65 +42,64 @@ export default function Search({ movies }: MovieProps) {
   })
 
   const router = useRouter()
+  const movie = router.query
 
   async function handleSearchMovie(movie: FormMovieData) {
     router.push(`/search/${movie.movie}`)
   }
 
   return (
-    <div className="min-w-screen  bg-black flex flex-col ">
-      <div className="w-full h-full items-center justify-center">
-        {!movies && 
-          <div className="text-white font-bold flex flex-col items-center mb-8">
-          <h1 className="text-white text-3xl my-4">Filmes no cinema</h1>
-          <form
-            className="flex gap-2"
-            onSubmit={handleSubmit(handleSearchMovie)}
-          >
-            <input
-              type="text"
-              placeholder="Busque um filme"
-              className="min-w-64 h-10 rounded-lg bg-gray_300 outline-none px-1 text-gray_100 placeholder:text-gray_100"
-              {...register('movie')}
-            />
-            <button className="w-8 h-10 bg-gray_300 rounded-lg flex items-center justify-center">
-              <FiSearch />
-            </button>
-          </form>
-          {errors.movie ? (
-            <span className="text-danger mt-2">{errors.movie.message}</span>
-          ) : null}
-          </div>
-        }
-        
-        <div className="w-full h-full grid grid-cols-5 xlg:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xsm:grid-cols-1">
-          {movies.length > 0 ? (
-            movies.map((movie) => {
-              return (
-                <div className="flex flex-col items-center" key={movie.id}>
-                  <Link href={`/movie/${movie.id}`}>
-                    <MovieCard
-                      id={movie.id}
-                      poster_path={movie.poster_path}
-                      title={movie.title}
-                    />
-                  </Link>
-                </div>
-              )
-            })
-          ) : (
-            <div className="w-screen flex flex-col items-center">
-            <h1 className="text-white text-3xl font-bold my-4">
-              Filme não encontrado
-            </h1>
-            <Link href="/home" className="text-blue">
-              Voltar para o Inicio
-            </Link>
-            </div>
-          )}
-        </div>
+   <div className="min-w-screen min-h-screen">
+    <Head>
+      <title>React Movies | {movie.movie}</title>
+    </Head>
+    <div>
+      <div className="w-full flex justify-center ">
+        <h1 className="text-3xl text-white font-bold mt-8">Resultados de {movie.movie}</h1>
+      </div>
+      <div className="w-full flex justify-center">
+        <form className="flex gap-2 mt-8" onSubmit={handleSubmit(handleSearchMovie)}>
+          <input 
+            type="text" 
+            placeholder="Busque um filme"
+            className="min-w-64 h-10 rounded-lg bg-gray_300 outline-none px-1 text-gray_100 placeholder:text-gray_100"
+            {...register('movie')}
+          />
+          <button className="w-8 h-10 bg-gray_300 rounded-lg flex items-center justify-center">
+            <FiSearch color="#696969" />
+          </button>
+          
+        </form>
+      </div>
+      <div className="flex justify-center m-2">
+        {errors.movie && ( <span className="text-danger mt-2">{errors.movie.message}</span> )}
       </div>
     </div>
+    
+    <div className="flex flex-col items-center">
+      <div className="grid grid-cols-4 gap-8 xlg:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xsm:grid-cols-1">
+        {movies.length > 0 ? (
+            movies.map((movie) => (
+              <Link href={`/movie/${movie.id}`} key={movie.id}>
+                <MovieCard
+                  id={movie.id}
+                  key={movie.id}
+                  poster_path={movie.poster_path}
+                  title={movie.title}
+                />
+              </Link>
+            ))
+        ) : (
+          <div className="w-screen">
+            <div className="w-full flex flex-col items-center mt-16">
+              <h1 className="text-white text-4xl font-bold overflow-hidden">Nenhum filme foi encontrado...</h1>
+              <Link href="/home" className="text-xl text-blue">Clique aqui para voltar para a página de Inicio</Link>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+   </div>
   )
 }
 
