@@ -19,16 +19,15 @@ export default function Cast({ cast }: CastProps) {
       <Head>
         <title>React Movies | Elenco</title>
       </Head>
-      <h1 className="text-4xl text-white font-bold text-center overflow-y-hidden">
+      <h1 className="overflow-y-hidden text-center text-4xl font-bold text-white">
         Elenco do filme
       </h1>
       <div className="min-w-screen min-h-screen bg-black">
-        <div className="w-full h-full grid grid-cols-5 gap-4 xlg:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xsm:grid-cols-1">
+        <div className="xlg:grid-cols-4 xsm:grid-cols-1 grid h-full w-full grid-cols-5 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
           {cast.map((item) => {
             return (
-              <div className="m-8">
+              <div className="m-8" key={item.id}>
                 <CastCard
-                  key={item.id}
                   name={item.name}
                   character={item.character}
                   profile_path={

@@ -11,13 +11,13 @@ interface CastCardProps {
 
 export function CastCard({ name, character, profile_path }: CastCardProps) {
   return (
-    <div className="max-w-[15rem] max-h-[30rem] rounded-lg m-2 flex flex-col items-center hover:scale-x-105 transition-transform cursor-pointer">
+    <div className="m-2 flex max-h-[30rem] max-w-[15rem] cursor-pointer flex-col items-center rounded-lg transition-transform hover:scale-x-105">
       {profile_path === "user-without-photo" ? (
-        <div className="min-w-[15rem] h-[22rem] rounded-lg m-2 flex flex-col items-center justify-center cursor-pointer bg-gray">
+        <div className="bg-gray m-2 flex h-[22rem] min-w-[15rem] cursor-pointer flex-col items-center justify-center rounded-lg">
           <FaUser
             size={180}
             color={colors.white}
-            className="max-w-[15rem] max-h-[22rem]"
+            className="max-h-[22rem] max-w-[15rem]"
           />
         </div>
       ) : (
@@ -31,7 +31,7 @@ export function CastCard({ name, character, profile_path }: CastCardProps) {
         />
       )}
 
-      <h1 className="text-white font-bold text-center text-ellipsis overflow-hidden whitespace-nowrap">
+      <h1 className="overflow-hidden text-ellipsis whitespace-nowrap text-center font-bold text-white">
         {name} ({character})
       </h1>
     </div>

@@ -36,7 +36,7 @@ export default function Favorites() {
   }, []);
 
   return (
-    <div className="min-w-screen min-h-screen bg-black flex flex-col items-center">
+    <div className="min-w-screen flex min-h-screen flex-col items-center bg-black">
       <Head>
         <title>React Movies | Favoritos</title>
       </Head>
@@ -44,7 +44,10 @@ export default function Favorites() {
         {moviesSaved.length !== 0 ? (
           moviesSaved.map((movie) => {
             return (
-              <div className="flex flex-col items-center justify-center">
+              <div
+                className="flex flex-col items-center justify-center"
+                key={movie.id}
+              >
                 <FavoriteCard
                   id={movie.id}
                   poster_path={movie.poster_path}
@@ -55,11 +58,11 @@ export default function Favorites() {
             );
           })
         ) : (
-          <div className="flex flex-col items-center justify-center mt-16">
-            <h1 className="text-4xl text-white text-center font-bold my-4 overflow-y-hidden">
+          <div className="mt-16 flex flex-col items-center justify-center">
+            <h1 className="my-4 overflow-y-hidden text-center text-4xl font-bold text-white">
               Lista Vazia...
             </h1>
-            <Link href="/home" className="text-blue text-xl text-center">
+            <Link href="/home" className="text-blue text-center text-xl">
               Clique aqui para para adicionar filmes a lista
             </Link>
           </div>

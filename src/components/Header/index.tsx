@@ -2,12 +2,12 @@ import colors from "tailwindcss/colors";
 import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { FaReact } from "react-icons/fa";
+import { FaReact } from "react-icons/fa"
 
 export function Header() {
   const session = useSession();
-  const statusAuthenticated = session.status;
-  const username = session.data?.user.name;
+  const statusAuthenticated = session.status
+  const username = session.data?.user.name
 
   return (
     <div className="min-w-screen h-[6rem] flex items-center justify-around sticky px-8">
