@@ -1,22 +1,32 @@
-import Link from 'next/link'
-import { GetServerSideProps } from 'next'
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { GetServerSideProps } from "next";
 
-import { apiMovies } from '@/lib/axios'
+import { apiMovies } from "@/lib/axios";
 
-import { MovieCard } from '@/components/MovieCard'
-import { Paginate } from '@/components/Paginate'
-import { GenreButtons } from '@/components/GenreButtons'
-import Head from 'next/head'
+import { MovieCard } from "@/components/MovieCard";
+import { Paginate } from "@/components/Paginate";
+import { GenreButtons } from "@/components/GenreButtons";
+import Head from "next/head";
+import { Skeleton } from "@mui/material";
 
 interface MovieProps {
   movies: {
-    id: string
-    poster_path: string
-    title: string
-  }[]
+    id: string;
+    poster_path: string;
+    title: string;
+  }[];
 }
 
 export default function Page({ movies }: MovieProps) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  });
+
   return (
     <div className="min-w-screen min-h-screen bg-black flex flex-col justify-center">
       <Head>
@@ -32,14 +42,24 @@ export default function Page({ movies }: MovieProps) {
                 return (
                   <div className="flex flex-col items-center" key={movie.id}>
                     <Link href={`/movie/${movie.id}`}>
-                      <MovieCard
-                        id={movie.id}
-                        poster_path={movie.poster_path}
-                        title={movie.title}
-                      />
+                      {isLoading ? (
+                        <Skeleton
+                          width={320}
+                          height={480}
+                          variant="rounded"
+                          animation="wave"
+                          sx={{ bgcolor: "grey.900" }}
+                        />
+                      ) : (
+                        <MovieCard
+                          id={movie.id}
+                          poster_path={movie.poster_path}
+                          title={movie.title}
+                        />
+                      )}
                     </Link>
                   </div>
-                )
+                );
               })}
           </div>
         </div>
@@ -48,34 +68,34 @@ export default function Page({ movies }: MovieProps) {
         <Paginate />
       </footer>
     </div>
-  )
+  );
 }
 
 export const getServerSideProps: GetServerSideProps<
   any,
   { page: string }
 > = async ({ params }) => {
-  const page = params?.page
+  const page = params?.page;
 
   try {
-    const response = await apiMovies.get('/movie/now_playing', {
+    const response = await apiMovies.get("/movie/now_playing", {
       params: {
         page,
       },
-    })
+    });
 
-    const movies = response.data.results.slice(0, 12)
+    const movies = response.data.results.slice(0, 12);
 
     return {
       props: {
         movies,
       },
-    }
+    };
   } catch (err) {
     return {
       props: {
         movies: [],
       },
-    }
+    };
   }
-}
+};

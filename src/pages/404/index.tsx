@@ -1,5 +1,5 @@
-import Head from 'next/head'
-import Link from 'next/link'
+import Head from "next/head";
+import Link from "next/link";
 
 export default function NotFound() {
   return (
@@ -12,5 +12,5 @@ export default function NotFound() {
         Voltar para a página de Início
       </Link>
     </div>
-  )
+  );
 }

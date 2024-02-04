@@ -1,49 +1,48 @@
-import { useState } from 'react'
-import { useRouter } from 'next/router'
+import { useState } from "react";
+import { useRouter } from "next/router";
+
 import {
   HiOutlineChevronLeft,
   HiOutlineChevronDoubleLeft,
   HiOutlineChevronRight,
   HiOutlineChevronDoubleRight,
-} from 'react-icons/hi'
+} from "react-icons/hi";
 
 interface PaginateProps {
-  withGenre?: boolean
-  genreId?: string
+  withGenre?: boolean;
+  genreId?: string;
 }
 
 export function Paginate({ withGenre, genreId }: PaginateProps) {
-  const [page, setPage] = useState(1)
-  const router = useRouter()
-  const actualPage = router.query
-
-  console.log(genreId)
+  const [page, setPage] = useState(1);
+  const router = useRouter();
+  const actualPage = router.query;
 
   function handleChangePage(id: number) {
     if (id === 1) {
-      setPage(1)
-      router.push(withGenre ? `/genre/${genreId}/1` : '/home')
+      setPage(1);
+      router.push(withGenre ? `/genre/${genreId}/1` : "/home");
     } else if (id === 2) {
-      setPage(page > 1 ? page - 1 : page)
+      setPage(page > 1 ? page - 1 : page);
       if (page !== 1) {
         router.push(
           withGenre
             ? `/genre/${genreId}/${page >= 1 ? page - 1 : page}`
-            : `/page/${page >= 1 ? page - 1 : page}`,
-        )
+            : `/page/${page >= 1 ? page - 1 : page}`
+        );
       }
     } else if (id === 3) {
-      setPage(page < 10 ? page + 1 : page)
+      setPage(page < 10 ? page + 1 : page);
       if (page !== 10) {
         router.push(
           withGenre
             ? `/genre/${genreId}/${page <= 10 ? page + 1 : page}`
-            : `/page/${page <= 10 ? page + 1 : page}`,
-        )
+            : `/page/${page <= 10 ? page + 1 : page}`
+        );
       }
     } else {
-      setPage(10)
-      router.push(withGenre ? `/genre/${genreId}/10` : `/page/10`)
+      setPage(10);
+      router.push(withGenre ? `/genre/${genreId}/10` : `/page/10`);
     }
   }
   return (
@@ -72,5 +71,5 @@ export function Paginate({ withGenre, genreId }: PaginateProps) {
         </button>
       </div>
     </div>
-  )
+  );
 }

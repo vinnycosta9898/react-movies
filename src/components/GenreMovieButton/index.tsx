@@ -1,8 +1,6 @@
-import { useState } from 'react'
-
 interface GenderMovieButtonProps {
-  genderMovie: string
-  onClick: () => void
+  genderMovie: string;
+  onClick: () => void;
 }
 
 export function GenderMovieButton({
@@ -10,7 +8,7 @@ export function GenderMovieButton({
   onClick,
 }: GenderMovieButtonProps) {
   function handleSelectedButton() {
-    onClick()
+    onClick();
   }
 
   return (
@@ -20,5 +18,5 @@ export function GenderMovieButton({
     >
       {genderMovie}
     </button>
-  )
+  );
 }

@@ -1,9 +1,9 @@
-import Image from 'next/image'
+import Image from "next/image";
 
 interface MovieCardProps {
-  id: string
-  poster_path: string
-  title: string
+  id: string;
+  poster_path: string;
+  title: string;
 }
 
 export function MovieCard({ poster_path, title }: MovieCardProps) {
@@ -17,5 +17,5 @@ export function MovieCard({ poster_path, title }: MovieCardProps) {
         priority
       />
     </div>
-  )
+  );
 }

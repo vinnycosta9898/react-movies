@@ -1,64 +1,68 @@
-import { useEffect, useState } from 'react'
-import Link from 'next/link'
-import { GetStaticPaths, GetStaticProps } from 'next'
-import { useRouter } from 'next/router'
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { useRouter } from "next/router";
 
-import { FiSearch } from 'react-icons/fi'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { FiSearch } from "react-icons/fi";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-import { apiMovies } from '@/lib/axios'
+import { apiMovies } from "@/lib/axios";
 
-import { MovieCard } from '@/components/MovieCard'
-import { Paginate } from '@/components/Paginate'
+import { MovieCard } from "@/components/MovieCard";
+import { Paginate } from "@/components/Paginate";
 
-import { matchGenreMovieByGenreId } from '@/utils/matchGenreMovieByUrl'
-import { GenreButtons } from '@/components/GenreButtons'
-import { Skeleton } from '@mui/material'
-import Head from 'next/head'
+import { matchGenreMovieByGenreId } from "@/utils/matchGenreMovieByUrl";
+import { GenreButtons } from "@/components/GenreButtons";
+import { Skeleton } from "@mui/material";
+import Head from "next/head";
 
 interface GenreProps {
   movies: {
-    id: string
-    poster_path: string
-    title: string
-  }[]
+    id: string;
+    poster_path: string;
+    title: string;
+  }[];
 }
 
 const formMovieSchema = z.object({
   movie: z
     .string()
-    .min(2, { message: 'O filme precisa ter no mínimo 2 letras' }),
-})
+    .min(2, { message: "O filme precisa ter no mínimo 2 letras" }),
+});
 
-type FormMovieData = z.infer<typeof formMovieSchema>
+type FormMovieData = z.infer<typeof formMovieSchema>;
 
 export default function GenrePage({ movies }: GenreProps) {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormMovieData>({
     resolver: zodResolver(formMovieSchema),
-  })
+  });
 
-  const router = useRouter()
-  const { genreId, page } = router.query
+  const router = useRouter();
+  const { genreId, page } = router.query;
 
   async function handleSearchMovie(movie: FormMovieData) {
-    router.push(`search/${movie.movie}`)
+    router.push(`search/${movie.movie}`);
   }
 
   useEffect(() => {
-    movies ? setIsLoading(false) : setIsLoading(true)
-  }, [isLoading])
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
 
   return (
     <div className="min-w-screen min-h-full bg-black flex flex-col items-center">
       <Head>
-        <title>React Movies | {matchGenreMovieByGenreId(Number(genreId))}</title>
+        <title>
+          React Movies | {matchGenreMovieByGenreId(Number(genreId))}
+        </title>
       </Head>
       <div className="w-full h-full items-center justify-center">
         <div className="text-white font-bold flex flex-col items-center mb-8">
@@ -74,7 +78,7 @@ export default function GenrePage({ movies }: GenreProps) {
               type="text"
               placeholder="Busque um filme"
               className="w-96 h-10 rounded-lg bg-gray_300 outline-none px-1 text-gray_100 placeholder:text-gray_100"
-              {...register('movie')}
+              {...register("movie")}
             />
             <button className="w-8 h-10 bg-gray_300 rounded-lg flex items-center justify-center">
               <FiSearch color="#696969" />
@@ -97,7 +101,7 @@ export default function GenrePage({ movies }: GenreProps) {
                           height={480}
                           variant="rounded"
                           animation="wave"
-                          sx={{ bgcolor: 'grey.900' }}
+                          sx={{ bgcolor: "grey.900" }}
                         />
                       ) : (
                         <MovieCard
@@ -108,7 +112,7 @@ export default function GenrePage({ movies }: GenreProps) {
                       )}
                     </Link>
                   </div>
-                )
+                );
               })}
           </div>
         </div>
@@ -117,7 +121,7 @@ export default function GenrePage({ movies }: GenreProps) {
         <Paginate withGenre={true} genreId={String(genreId)} />
       </footer>
     </div>
-  )
+  );
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -125,46 +129,46 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths: [
       {
         params: {
-          genreId: '12',
-          page: '3',
+          genreId: "12",
+          page: "3",
         },
       },
     ],
-    fallback: 'blocking',
-  }
-}
+    fallback: "blocking",
+  };
+};
 
 export const getStaticProps: GetStaticProps<
   any,
   { genreId: string; page: string }
 > = async ({ params }) => {
-  const genreId = params?.genreId
-  const page = params?.page
+  const genreId = params?.genreId;
+  const page = params?.page;
 
-  console.log(genreId)
-  console.log(page)
+  console.log(genreId);
+  console.log(page);
 
   try {
-    const response = await apiMovies.get('/discover/movie', {
+    const response = await apiMovies.get("/discover/movie", {
       params: {
         with_genres: genreId,
         page,
       },
-    })
+    });
 
-    const movies = response.data.results.slice(0, 12)
+    const movies = response.data.results.slice(0, 12);
 
     return {
       props: {
         movies,
       },
       revalidate: 60 * 60 * 24 * 7, // 7 days
-    }
+    };
   } catch (err) {
     return {
       props: {
         movies: [],
       },
-    }
+    };
   }
-}
+};

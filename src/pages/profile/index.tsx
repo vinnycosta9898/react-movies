@@ -1,14 +1,14 @@
-import Image from 'next/image'
-import { useSession, signOut } from 'next-auth/react'
-import { useRouter } from 'next/router'
+import Image from "next/image";
+import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/router";
 
 export default function Profile() {
-  const session = useSession()
-  const router = useRouter()
+  const session = useSession();
+  const router = useRouter();
 
   async function handleSignOut() {
-    await router.push('/')
-    await signOut()
+    await router.push("/");
+    await signOut();
   }
 
   return (
@@ -39,5 +39,5 @@ export default function Profile() {
         </div>
       </div>
     </div>
-  )
+  );
 }

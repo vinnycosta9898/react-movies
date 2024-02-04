@@ -1,16 +1,16 @@
-import { useRouter } from 'next/router'
-import { useState } from 'react'
-import { GenderMovieButton } from '../GenreMovieButton'
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { GenderMovieButton } from "../GenreMovieButton";
 
 export function GenreButtons() {
-  const [buttonSelected, setButtonSelected] = useState(0)
-  const [buttonIsActive, setButtonIsActive] = useState(false)
-  const router = useRouter()
+  const [buttonSelected, setButtonSelected] = useState(0);
+  const [buttonIsActive, setButtonIsActive] = useState(false);
+  const router = useRouter();
 
   function handleSelectedGenre(genreId: number) {
-    setButtonSelected(genreId)
-    setButtonIsActive(!buttonIsActive)
-    router.push(`/genre/${genreId}`)
+    setButtonSelected(genreId);
+    setButtonIsActive(!buttonIsActive);
+    router.push(`/genre/${genreId}`);
   }
 
   return (
@@ -84,5 +84,5 @@ export function GenreButtons() {
         onClick={() => handleSelectedGenre(27)}
       />
     </div>
-  )
+  );
 }

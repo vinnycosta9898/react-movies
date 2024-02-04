@@ -1,12 +1,13 @@
-import Image from 'next/image'
-import { FaTrashAlt } from 'react-icons/fa'
-import colors from 'tailwindcss/colors'
+import Image from "next/image";
+
+import { FaTrashAlt } from "react-icons/fa";
+import colors from "tailwindcss/colors";
 
 interface FavoriteCardProps {
-  id: string
-  poster_path: string
-  title: string
-  onRemovedMovie: (movieId: string) => void
+  id: string;
+  poster_path: string;
+  title: string;
+  onRemovedMovie: (movieId: string) => void;
 }
 
 export function FavoriteCard({
@@ -26,13 +27,15 @@ export function FavoriteCard({
         priority
         className="rounded-lg"
       />
-      <h1 className="text-white text-xl font-bold md:text-xl text-center xsm:text-sm">{title}</h1>
+      <h1 className="text-white text-xl font-bold md:text-xl text-center xsm:text-sm">
+        {title}
+      </h1>
       <button
         className="w-10 h-10 bg-gray_200 flex items-center justify-center rounded-lg mx-2"
         onClick={() => onRemovedMovie(id)}
       >
-        <FaTrashAlt size={20} color={colors.red['400']} />
+        <FaTrashAlt size={20} color={colors.red["400"]} />
       </button>
     </div>
-  )
+  );
 }

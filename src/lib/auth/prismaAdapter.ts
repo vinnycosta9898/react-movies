@@ -1,11 +1,11 @@
-import { NextApiRequest, NextApiResponse } from 'next'
-import { Adapter } from 'next-auth/adapters'
-import { prisma } from '../prisma'
-import { destroyCookie } from 'nookies'
+import { NextApiRequest, NextApiResponse } from "next";
+import { Adapter } from "next-auth/adapters";
+import { prisma } from "../prisma";
+import { destroyCookie } from "nookies";
 
 export function PrismaAdapter(
   req: NextApiRequest,
-  res: NextApiResponse,
+  res: NextApiResponse
 ): Adapter {
   return {
     async createUser(user) {
@@ -15,11 +15,11 @@ export function PrismaAdapter(
           email: user.email,
           avatar_url: user.avatar_url,
         },
-      })
+      });
 
-      destroyCookie({ res }, '@react-movies:userId', {
-        path: '/',
-      })
+      destroyCookie({ res }, "@react-movies:userId", {
+        path: "/",
+      });
 
       return {
         id: prismaUser.id,
@@ -27,7 +27,7 @@ export function PrismaAdapter(
         email: prismaUser.email,
         avatar_url: prismaUser.avatar_url!,
         emailVerified: null,
-      }
+      };
     },
 
     async getUser(id) {
@@ -35,15 +35,15 @@ export function PrismaAdapter(
         where: {
           id,
         },
-      })
+      });
 
-      if (!user) return null
+      if (!user) return null;
 
       return {
         ...user,
         avatar_url: user.avatar_url!,
         emailVerified: null,
-      }
+      };
     },
 
     async getUserByEmail(email) {
@@ -51,15 +51,15 @@ export function PrismaAdapter(
         where: {
           email,
         },
-      })
+      });
 
-      if (!user) return null
+      if (!user) return null;
 
       return {
         ...user,
         avatar_url: user.avatar_url!,
         emailVerified: null,
-      }
+      };
     },
 
     async getUserByAccount({ providerAccountId, provider }) {
@@ -73,17 +73,17 @@ export function PrismaAdapter(
         include: {
           user: true,
         },
-      })
+      });
 
-      if (!account) return null
+      if (!account) return null;
 
-      const { user } = account
+      const { user } = account;
 
       return {
         ...user,
         avatar_url: user.avatar_url!,
         emailVerified: null,
-      }
+      };
     },
 
     async updateUser(user) {
@@ -96,13 +96,13 @@ export function PrismaAdapter(
           email: user.email,
           avatar_url: user.avatar_url,
         },
-      })
+      });
 
       return {
         ...updatedUser,
         avatar_url: updatedUser.avatar_url!,
         emailVerified: null,
-      }
+      };
     },
 
     async linkAccount(account) {
@@ -120,7 +120,7 @@ export function PrismaAdapter(
           id_token: account.id_token,
           session_state: account.session_state,
         },
-      })
+      });
     },
 
     async createSession({ sessionToken, userId, expires }) {
@@ -130,13 +130,13 @@ export function PrismaAdapter(
           expires,
           session_token: sessionToken,
         },
-      })
+      });
 
       return {
         sessionToken,
         userId,
         expires,
-      }
+      };
     },
 
     async getSessionAndUser(sessionToken) {
@@ -147,11 +147,11 @@ export function PrismaAdapter(
         include: {
           user: true,
         },
-      })
+      });
 
-      if (!prismaSession) return null
+      if (!prismaSession) return null;
 
-      const { user, ...session } = prismaSession
+      const { user, ...session } = prismaSession;
 
       return {
         session: {
@@ -166,7 +166,7 @@ export function PrismaAdapter(
           avatar_url: user.avatar_url!,
           emailVerified: null,
         },
-      }
+      };
     },
 
     async updateSession({ sessionToken, userId, expires }) {
@@ -178,13 +178,13 @@ export function PrismaAdapter(
           user_id: userId,
           expires,
         },
-      })
+      });
 
       return {
         sessionToken: prismaSession.session_token,
         userId: prismaSession.user_id,
         expires: prismaSession.expires,
-      }
+      };
     },
 
     async deleteSession(sessionToken) {
@@ -192,7 +192,7 @@ export function PrismaAdapter(
         where: {
           session_token: sessionToken,
         },
-      })
+      });
     },
-  }
+  };
 }
