@@ -1,9 +1,7 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { signIn } from "next-auth/react";
 
 import colors from "tailwindcss/colors";
-import { FcGoogle } from "react-icons/fc";
 import { FaReact, FaUser } from "react-icons/fa";
 import movieImg from "../../public/movies.jpeg";
 
@@ -12,19 +10,6 @@ import Head from "next/head";
 
 export default function Home() {
   const router = useRouter();
-
-  async function handleSignIn(provider: string, callbackUrl = "/google") {
-    if (!provider) {
-      await router.push("/");
-      return;
-    }
-
-    signIn(provider, {
-      callbackUrl,
-    });
-
-    await router.push("/home");
-  }
 
   return (
     <div className="min-w-screen flex min-h-screen flex-col items-center justify-center">
@@ -52,16 +37,6 @@ export default function Home() {
           />
         </div>
         <div className="mt-4 flex flex-col gap-4">
-          <button
-            className="bg-gray_300 flex h-16 min-w-80 items-center justify-center gap-4 rounded-lg"
-            onClick={() => handleSignIn("google")}
-          >
-            <FcGoogle size={40} className="xsm:w-[20px]" />
-            <h1 className="xsm:text-sm text-xl font-bold text-white md:text-xl">
-              Entrar com Google
-            </h1>
-          </button>
-
           <button
             className="bg-gray_300 flex h-16 min-w-80 items-center justify-center gap-4 rounded-lg"
             onClick={() => router.push("/home")}
