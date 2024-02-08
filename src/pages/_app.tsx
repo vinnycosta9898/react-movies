@@ -1,5 +1,4 @@
 import type { AppProps } from "next/app";
-import { SessionProvider } from "next-auth/react";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,10 +16,11 @@ export default function App({
   const isLoginPage = router.pathname === "/";
 
   return (
-    <SessionProvider session={session}>
-      {!isLoginPage && <Header />}
-      <ToastContainer />
-      <Component {...pageProps} />
-    </SessionProvider>
+      <>
+        {!isLoginPage && <Header />}
+        <ToastContainer />
+        <Component {...pageProps} />
+      </>
+  
   );
 }
