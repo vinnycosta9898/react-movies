@@ -6,7 +6,7 @@ export const matchGenreMovieByGenreId = (genreId: number) => {
     case 16:
       return (genre = "Animação");
     case 28:
-      return (genre = "Acão");
+      return (genre = "Ação");
     case 35:
       return (genre = "Comédia");
     case 80:
